@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Calculate your FI date</title>
+    <!-- Defer loading javascript until entire document has been loaded  -->
+    <script src="fi.js" defer></script>
+  </head>
+
+  <body>
+    <h1>
+      Want to know when you'll be financially independent and no longer have
+      to work for a living?
+    </h1>
+    <form id="fi_form">
+      <input id="annual_income" name="annual_income">Annual Income</input>
+      <br>
+      <input id="annual_spending" name="annual_spending">Annual Spending</input>
+      <br>
+      <input id="annual_savings" name="annual_savings">Annual Savings</input>
+      <br>
+      <input id="roi" name="roi">Assumed ROI</input>
+      <br>
+      <input id="withdrawal_percent" name="withdrawal_percent">Withdrawal percent in retirement</input>
+      <br>
+      <input id="networth" name="networth">Current Net Worth</input>
+      <br>
+      <button>Calculate my FI date!</button>
+    </form>
+
+    <p>Years until financially independent: <b id="years_to_fi">unknown</b></p>
+  </body>
+</html>
