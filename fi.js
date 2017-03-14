@@ -13,14 +13,13 @@ FI.calculate_fi = function() {
   var values = FI.get_form_input();
   FI.set_form_defaults(values);
 
-  var years = FI.years_to_fi(annual_savings, annual_spending, networth);
-  document.getElementById("years_to_fi").innerHTML = years + " years";
+  var years = FI.years_to_fi(values);
+  document.getElementById("years_to_fi").innerHTML = years.toFixed(2) + " years";
 }
 
 FI.get_form_input = function() {
   // Gets the user's input for calculating his time to financial independence
   var values = {};
-  // TODO: grab these from GET parameters or default to some value
   values.annual_income = FI.get_query_variable("annual_income") || FI.default_values.annual_income;
   values.annual_spending = FI.get_query_variable("annual_spending") || FI.default_values.annual_spending;
   values.annual_savings = FI.get_query_variable("annual_savings") || FI.default_values.annual_savings;
@@ -51,8 +50,29 @@ FI.set_form_defaults = function(values) {
   document.getElementById("networth").value = values.networth;
 }
 
-FI.years_to_fi = function(annual_savings, annual_spending, current_net_worth) {
-  return "Unknown, this function hasn't been completed yet";
+FI.years_to_fi = function(values) {
+  return FI.months_to_fi(values) / 12;
+}
+
+FI.months_to_fi = function(values) {
+  var n_months = 0;
+  while (!FI.is_financially_independent(values)) {
+    // How much has the networth increased simply from ROI?
+    values.networth *= (1 + (values.roi / 100 / 12));
+    // Let's add up the savings
+    values.networth += (values.annual_savings / 12);
+    n_months++;
+    if (n_months >= (1200)) { // FI >= 100 years
+      return NaN; // safety check to prevent infinite loops
+    }
+  }
+  return n_months;
+}
+
+FI.is_financially_independent = function(values) {
+  // Return true if the user is financially independent, or false otherwise
+  var nest_egg = values.annual_spending * (100 / values.withdrawal_percent);
+  return values.networth >= nest_egg;
 }
 
 FI.calculate_fi();
