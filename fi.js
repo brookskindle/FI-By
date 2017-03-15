@@ -1,32 +1,75 @@
 var FI = {};
-FI.default_values = {
-  annual_income: 100000,
-  annual_spending: 60000,
-  annual_savings: 40000,
+
+// What version of this library are we using?
+FI.version = "0.0.1";
+
+// A sample calculation object that lets us determine when the user will be
+// financially independent
+FI.FICalculation = {
+  // With the exception of networth, these are all annual amounts.
+  income: 100000,
+  expenses: 50000,
   roi: 5,
+  swr: 4,
   networth: 0,
-  withdrawal_percent: 4,
-};
+
+  savings: function() {
+    return this.income - this.expenses;
+  },
+
+  nestegg: function() {
+    // If your expenses are $40k/yr and your SWR is 4%, your nest egg is $1M
+    return this.expenses / (this.swr / 100);
+  },
+
+  is_fi: function(values) {
+    return this.networth >= this.nestegg();
+  },
+
+  years_to_fi: function() {
+    return this.months_to_fi() / 12;
+  },
+
+  months_to_fi: function() {
+    var n_months = 0;
+    while (!this.is_fi()) {
+      // How much has the networth increased simply from ROI?
+      this.networth *= (1 + (this.roi / 100 / 12));
+      // Let's add up the savings
+      this.networth += (this.savings() / 12);
+      n_months++;
+      if (n_months >= (1200)) { // FI >= 100 years
+        return NaN; // safety check to prevent infinite loops
+      }
+    }
+    return n_months;
+  },
+}
+
+////////////////////////////////////////////////////////
+//Here begins the logic to interact with the web page //
+////////////////////////////////////////////////////////
 
 FI.calculate_fi = function() {
-  // Main entry point for calculating financial independence
-  var values = FI.get_form_input();
-  FI.set_form_defaults(values);
+  // Main entry point for the program
+  var calculation = FI.get_user_calculation();
+  FI.set_form_defaults(calculation);
 
-  var years = FI.years_to_fi(values);
+  var years = calculation.years_to_fi();
   document.getElementById("years_to_fi").innerHTML = years.toFixed(2) + " years";
 }
 
-FI.get_form_input = function() {
+FI.get_user_calculation = function() {
   // Gets the user's input for calculating his time to financial independence
-  var values = {};
-  values.annual_income = FI.get_query_variable("annual_income") || FI.default_values.annual_income;
-  values.annual_spending = FI.get_query_variable("annual_spending") || FI.default_values.annual_spending;
-  values.annual_savings = FI.get_query_variable("annual_savings") || FI.default_values.annual_savings;
-  values.roi = FI.get_query_variable("roi") || FI.default_values.roi;
-  values.withdrawal_percent = FI.get_query_variable("withdrawal_percent") || FI.default_values.withdrawal_percent;
-  values.networth = FI.get_query_variable("networth") || FI.default_values.networth;
-  return values;
+  var calc = Object.create(FI.FICalculation);
+
+  calc.income = FI.get_query_variable("income") || calc.income;
+  calc.expenses = FI.get_query_variable("expenses") || calc.expenses;
+  calc.roi = FI.get_query_variable("roi") || calc.roi;
+  calc.swr = FI.get_query_variable("swr") || calc.swr;
+  calc.networth = FI.get_query_variable("networth") || calc.networth;
+
+  return calc;
 }
 
 FI.get_query_variable = function(variable) {
@@ -40,39 +83,14 @@ FI.get_query_variable = function(variable) {
   return(false);
 }
 
-FI.set_form_defaults = function(values) {
+FI.set_form_defaults = function(calc) {
   // Set default values on the form fields
-  document.getElementById("annual_income").value = values.annual_income;
-  document.getElementById("annual_spending").value = values.annual_spending;
-  document.getElementById("annual_savings").value = values.annual_savings;
-  document.getElementById("roi").value = values.roi;
-  document.getElementById("withdrawal_percent").value = values.withdrawal_percent;
-  document.getElementById("networth").value = values.networth;
-}
-
-FI.years_to_fi = function(values) {
-  return FI.months_to_fi(values) / 12;
-}
-
-FI.months_to_fi = function(values) {
-  var n_months = 0;
-  while (!FI.is_financially_independent(values)) {
-    // How much has the networth increased simply from ROI?
-    values.networth *= (1 + (values.roi / 100 / 12));
-    // Let's add up the savings
-    values.networth += (values.annual_savings / 12);
-    n_months++;
-    if (n_months >= (1200)) { // FI >= 100 years
-      return NaN; // safety check to prevent infinite loops
-    }
-  }
-  return n_months;
-}
-
-FI.is_financially_independent = function(values) {
-  // Return true if the user is financially independent, or false otherwise
-  var nest_egg = values.annual_spending * (100 / values.withdrawal_percent);
-  return values.networth >= nest_egg;
+  document.getElementById("income").value = calc.income;
+  document.getElementById("expenses").value = calc.expenses;
+  document.getElementById("savings").value = calc.savings();
+  document.getElementById("roi").value = calc.roi;
+  document.getElementById("swr").value = calc.swr;
+  document.getElementById("networth").value = calc.networth;
 }
 
 FI.calculate_fi();
