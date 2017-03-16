@@ -2,14 +2,17 @@
 <html>
   <head>
     <title>Calculate your FI date</title>
-    <!-- Defer loading javascript until entire document has been loaded  -->
-    <script src="http://visjs.org/dist/vis.js" defer></script>
-    <link href="http://visjs.org/dist/vis.css" rel="stylesheet" type="text/css" />
-    <!-- TODO: download moment.js into the repo -->
-    <script src="http://momentjs.com/downloads/moment.js" defer></script>
-    <!-- Financial independence library -->
+
+    <script src="jquery-3.1.1.js" defer></script>
+    <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css"></link>
+    <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js" defer></script>
+
+    <script src="vis-4.18.1/dist/vis.min.js" defer></script>
+    <link href="vis-4.18.1/dist/vis.min.css" rel="stylesheet" type="text/css" />
+
+    <script src="moment.js" defer></script>
+
     <script src="fi.js" defer></script>
-    <!-- Script to interact with out web page  -->
     <script src="fi-by.js" defer></script>
   </head>
 
@@ -36,7 +39,7 @@
 
     <p>Years until financially independent: <b id="years_to_fi">unknown</b></p>
 
-    <div id="canvas_div">
+    <div id="canvas_div" style="width: 75%; margin: auto">
       <canvas id="canvas"></canvas>
     </div>
   </body>
