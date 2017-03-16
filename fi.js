@@ -22,8 +22,8 @@ FI.FICalculation = {
     return this.expenses / (this.swr / 100);
   },
 
-  is_fi: function(values) {
-    return this.networth >= this.nestegg();
+  is_fi: function(networth) {
+    return networth >= this.nestegg();
   },
 
   years_to_fi: function() {
@@ -32,17 +32,37 @@ FI.FICalculation = {
 
   months_to_fi: function() {
     var n_months = 0;
-    while (!this.is_fi()) {
+    var cur_networth = this.networth;
+    while (!this.is_fi(cur_networth)) {
       // How much has the networth increased simply from ROI?
-      this.networth *= (1 + (this.roi / 100 / 12));
+      cur_networth *= (1 + (this.roi / 100 / 12));
       // Let's add up the savings
-      this.networth += (this.savings() / 12);
+      cur_networth += (this.savings() / 12);
       n_months++;
       if (n_months >= (1200)) { // FI >= 100 years
         return NaN; // safety check to prevent infinite loops
       }
     }
     return n_months;
+  },
+
+  per_month: function() {
+    var networth_per_month = [];
+    // TODO: refactor this and the months_to_fi function
+    var cur_networth = this.networth;
+    networth_per_month.push(cur_networth); // start at month 0
+
+    while (!this.is_fi(cur_networth)) {
+      // How much has the networth increased simply from ROI?
+      cur_networth *= (1 + (this.roi / 100 / 12));
+      // Let's add up the savings
+      cur_networth += (this.savings() / 12);
+      networth_per_month.push(cur_networth);
+      if (networth_per_month.length >= (1200)) { // FI >= 100 years
+        return NaN; // safety check to prevent infinite loops
+      }
+    }
+    return networth_per_month;
   },
 }
 
@@ -57,6 +77,9 @@ FI.calculate_fi = function() {
 
   var years = calculation.years_to_fi();
   document.getElementById("years_to_fi").innerHTML = years.toFixed(2) + " years";
+
+  networth_by_month = calculation.per_month();
+  FI.graph_fi(networth_by_month);
 }
 
 FI.get_user_calculation = function() {
@@ -92,5 +115,38 @@ FI.set_form_defaults = function(calc) {
   document.getElementById("swr").value = calc.swr;
   document.getElementById("networth").value = calc.networth;
 }
+
+//exploratory vis.js examples
+FI.graph_fi = function(networths) {
+  // networths is an array of numbers representing the growing (or shrinking)
+  // networth. It is per month.
+
+  // vis.js expects the x axis to be dates ("yyyy-mm-dd"). Build a timeline of
+  // months to FI starting from today
+  var items = [];
+  // use moment.js for sane date calculations
+  var date = moment();
+  var i;
+  for (i = 0; i < networths.length; i++) {
+    var networth = networths[i];
+    var datestring = date.format("YYYY-MM-DD");
+    date.add(1, "month");
+    items.push({
+      x: datestring,
+      y: networth,
+    });
+  }
+
+  var dataset = new vis.DataSet(items);
+  var options = {
+    //start: "2013-06-11",
+    //end: "2016-08-04",
+    //moveable: false,
+  };
+
+  //actually graph it
+  var container = document.getElementById("canvas_div");
+  var graph2d = new vis.Graph2d(container, dataset, options);
+};
 
 FI.calculate_fi();

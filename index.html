@@ -3,6 +3,10 @@
   <head>
     <title>Calculate your FI date</title>
     <!-- Defer loading javascript until entire document has been loaded  -->
+    <script src="http://visjs.org/dist/vis.js" defer></script>
+    <link href="http://visjs.org/dist/vis.css" rel="stylesheet" type="text/css" />
+    <!-- TODO: download moment.js into the repo -->
+    <script src="http://momentjs.com/downloads/moment.js" defer></script>
     <script src="fi.js" defer></script>
   </head>
 
@@ -28,5 +32,9 @@
     </form>
 
     <p>Years until financially independent: <b id="years_to_fi">unknown</b></p>
+
+    <div id="canvas_div">
+      <canvas id="canvas"></canvas>
+    </div>
   </body>
 </html>
