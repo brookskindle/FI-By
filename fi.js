@@ -134,14 +134,16 @@ FI.graph_fi = function(networths) {
     items.push({
       x: datestring,
       y: networth,
+      group: "Networth",
     });
   }
 
   var dataset = new vis.DataSet(items);
   var options = {
-    //start: "2013-06-11",
-    //end: "2016-08-04",
-    //moveable: false,
+    drawPoints: false,
+    legend: true,
+    clickToUse: true,
+    defaultGroup: "",
   };
 
   //actually graph it
