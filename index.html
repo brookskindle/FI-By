@@ -17,30 +17,80 @@
   </head>
 
   <body>
-    <h1>
-      Want to know when you'll be financially independent and no longer have
-      to work for a living?
-    </h1>
-    <form id="fi_form">
-      <input id="income" name="income">Annual Income</input>
-      <br>
-      <input id="expenses" name="expenses">Annual Expenses</input>
-      <br>
-      <input id="savings" name="savings" disabled>Annual Savings</input>
-      <br>
-      <input id="roi" name="roi">Assumed ROI</input>
-      <br>
-      <input id="swr" name="swr">Withdrawal percent in retirement</input>
-      <br>
-      <input id="networth" name="networth">Current Net Worth</input>
-      <br>
-      <button>Calculate my FI date!</button>
-    </form>
+    <div class="container">
+      <div class="row">
+        <center>
+          <h1>When will you achieve financial independence?</h1>
+        </center>
 
-    <p>Years until financially independent: <b id="years_to_fi">unknown</b></p>
+        <form id="fi_form" class="form-horizontal">
+          <div class="form-group">
+            <label class="control-label col-xs-2" for="income">Annual income</label>
+            <div class="col-xs-10">
+              <input id="income" name="income" class="form-control"></input>
+            </div>
+          </div>
 
-    <div id="canvas_div" style="width: 75%; margin: auto">
-      <canvas id="canvas"></canvas>
-    </div>
+          <div class="form-group">
+            <label class="control-label col-xs-2" for="expenses">Annual expenses</label>
+            <div class="col-xs-10">
+              <input id="expenses" class="form-control" name="expenses"></input>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label col-xs-2" for="savings">Annual savings</label>
+            <div class="col-xs-10">
+              <input id="savings" class="form-control" name="savings" disabled></input>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label col-xs-2" for="networth">Current networth</label>
+            <div class="col-xs-10">
+              <input id="networth" class="form-control" name="networth"></input>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label col-xs-2" for="roi">Annual return on investment (%)</label>
+            <div class="col-xs-10">
+              <input id="roi" class="form-control" name="roi"></input>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label col-xs-2" for="swr">Annual withdrawal rate (%)</label>
+            <div class="col-xs-10">
+              <input id="swr" class="form-control" name="swr"></input>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-xs-offset-2 col-xs-2">
+              <button type="submit" class="btn btn-primary">Calculate my FI date!</button>
+            </div>
+          </div>
+        </form>
+      </div> <!-- row -->
+
+      <div class="row">
+        <center>
+        <div class="col-xs-12">
+          <p>
+          To support an annual income of <b>$</b><b id="expense_result">???</b> on a
+          <b id="withdrawal_rate_result">???</b><b>%</b> withdrawal rate, you will
+          need to accumulate <b>$</b><b id="nest_egg_result">???</b>.  With a savings
+          rate of <b id="savings_rate_result">???</b><b>%</b>, this will take
+          <b id="years_to_fi_result">unknown</b> years, at which point you will
+          be considered financially independent.
+          </p>
+        </div>
+        <div id="canvas_div" class="col-xs-12">
+        </div>
+        </center>
+      </div> <!-- row -->
+
+    </div> <!-- container -->
   </body>
 </html>

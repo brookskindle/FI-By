@@ -5,8 +5,22 @@ FI.calculate_fi = function() {
   var calculation = FI.get_user_calculation();
   FI.set_form_defaults(calculation);
 
-  var years = calculation.years_to_fi();
-  document.getElementById("years_to_fi").innerHTML = years.toFixed(2) + " years";
+  var years = calculation.years_to_fi().toFixed(2);  // eg: 9.45
+  document.getElementById("years_to_fi_result").innerHTML = years;
+
+  var savings_rate = calculation.savings() / calculation.income * 100;
+  savings_rate = savings_rate.toFixed(2); // eg: 23.75
+
+  document.getElementById("savings_rate_result").innerHTML = savings_rate;
+
+  var expenses = calculation.expenses.toLocaleString(); // eg: 50,340.22
+  document.getElementById("expense_result").innerHTML = expenses;
+
+  var swr = calculation.swr;
+  document.getElementById("withdrawal_rate_result").innerHTML = swr;
+
+  var nestegg = calculation.nestegg().toLocaleString();
+  document.getElementById("nest_egg_result").innerHTML = nestegg;
 
   networth_by_month = calculation.per_month();
   FI.graph_fi(networth_by_month);
@@ -16,11 +30,11 @@ FI.get_user_calculation = function() {
   // Gets the user's input for calculating his time to financial independence
   var calc = Object.create(FI.FICalculation);
 
-  calc.income = FI.get_query_variable("income") || calc.income;
-  calc.expenses = FI.get_query_variable("expenses") || calc.expenses;
-  calc.roi = FI.get_query_variable("roi") || calc.roi;
-  calc.swr = FI.get_query_variable("swr") || calc.swr;
-  calc.networth = FI.get_query_variable("networth") || calc.networth;
+  calc.income = Number(FI.get_query_variable("income")) || calc.income;
+  calc.expenses = Number(FI.get_query_variable("expenses")) || calc.expenses;
+  calc.roi = Number(FI.get_query_variable("roi")) || calc.roi;
+  calc.swr = Number(FI.get_query_variable("swr")) || calc.swr;
+  calc.networth = Number(FI.get_query_variable("networth")) || calc.networth;
 
   return calc;
 }
