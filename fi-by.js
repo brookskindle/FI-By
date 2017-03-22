@@ -23,7 +23,7 @@ FI.calculate_fi = function() {
   document.getElementById("nest_egg_result").innerHTML = nestegg;
 
   networth_by_month = calculation.per_month();
-  FI.graph_fi(networth_by_month);
+  FI.graph_fi_plotly(networth_by_month);
 };
 
 FI.get_user_calculation = function() {
@@ -69,38 +69,27 @@ FI.set_form_defaults = function(calc) {
   }
 };
 
-FI.graph_fi = function(networths) {
-  // networths is an array of numbers representing the growing (or shrinking)
-  // networth. It is per month.
-
-  // vis.js expects the x axis to be dates ("yyyy-mm-dd"). Build a timeline of
-  // months to FI starting from today
-  var items = [];
-  // use moment.js for sane date calculations
-  var date = moment();
+FI.graph_fi_plotly = function(networths) {
+  var x = [];
+  var y = [];
   var i;
   for (i = 0; i < networths.length; i++) {
-    var networth = networths[i];
-    var datestring = date.format("YYYY-MM-DD");
-    date.add(1, "month");
-    items.push({
-      x: datestring,
-      y: networth,
-      group: "Networth",
-    });
+    x.push(i);
+    var networth = networths[i].toFixed(2);
+    y.push(networths[i].toFixed(2));
   }
 
-  var dataset = new vis.DataSet(items);
-  var options = {
-    drawPoints: false,
-    legend: true,
-    clickToUse: true,
-    defaultGroup: "",
+  var items = {
+    x: x,
+    y: y,
+    mode: "lines",
+    line: {
+      color: document.getElementById("color").value,
+    },
   };
+  var data = [items];
 
-  //actually graph it
-  var container = document.getElementById("canvas_div");
-  var graph2d = new vis.Graph2d(container, dataset, options);
+  Plotly.newPlot("canvas_div", data);
 };
 
 FI.calculate_fi();

@@ -3,15 +3,17 @@
   <head>
     <title>Calculate your FI date</title>
 
-    <script src="jquery-3.1.1.js" defer></script>
-    <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css"></link>
-    <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js" defer></script>
+    <!-- Bootstrap -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" defer></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
 
-    <script src="vis-4.18.1/dist/vis.min.js" defer></script>
-    <link href="vis-4.18.1/dist/vis.min.css" rel="stylesheet" type="text/css" />
+    <!-- Bootstrap requires jQuery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script>
 
-    <script src="moment.js" defer></script>
+    <!-- Plotly -->
+    <script src="https://cdn.plot.ly/plotly-1.2.0.min.js"></script>
 
+    <!-- Custom javascript -->
     <script src="fi.js" defer></script>
     <script src="fi-by.js" defer></script>
   </head>
@@ -84,20 +86,21 @@
 
       <div class="row">
         <center>
-        <div class="col-xs-12">
-          <p>
-          To support an annual income of <b>$</b><b id="expense_result">???</b> on a
-          <b id="withdrawal_rate_result">???</b><b>%</b> withdrawal rate, you will
-          need to accumulate <b>$</b><b id="nest_egg_result">???</b>.  With a savings
-          rate of <b id="savings_rate_result">???</b><b>%</b>, this will take
-          <b id="years_to_fi_result">unknown</b> years, at which point you will
-          be considered financially independent.
-          </p>
-        </div>
-        <div id="canvas_div" class="col-xs-12">
-        </div>
+          <div class="col-xs-12">
+            <p>
+            To support an annual income of <b>$</b><b id="expense_result">???</b> on a
+            <b id="withdrawal_rate_result">???</b><b>%</b> withdrawal rate, you will
+            need to accumulate <b>$</b><b id="nest_egg_result">???</b>.  With a savings
+            rate of <b id="savings_rate_result">???</b><b>%</b>, this will take
+            <b id="years_to_fi_result">unknown</b> years, at which point you will
+            be considered financially independent.
+            </p>
+          </div>
         </center>
       </div> <!-- row -->
+
+      <div id="canvas_div">
+      </div>
 
     </div> <!-- container -->
   </body>
