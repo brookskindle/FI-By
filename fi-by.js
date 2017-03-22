@@ -24,7 +24,7 @@ FI.calculate_fi = function() {
 
   networth_by_month = calculation.per_month();
   FI.graph_fi(networth_by_month);
-}
+};
 
 FI.get_user_calculation = function() {
   // Gets the user's input for calculating his time to financial independence
@@ -37,7 +37,7 @@ FI.get_user_calculation = function() {
   calc.networth = Number(FI.get_query_variable("networth")) || calc.networth;
 
   return calc;
-}
+};
 
 FI.get_query_variable = function(variable) {
   // from https://css-tricks.com/snippets/javascript/get-url-variables/
@@ -48,7 +48,7 @@ FI.get_query_variable = function(variable) {
     if(pair[0] == variable){return pair[1];}
   }
   return(false);
-}
+};
 
 FI.set_form_defaults = function(calc) {
   // Set default values on the form fields
@@ -58,7 +58,16 @@ FI.set_form_defaults = function(calc) {
   document.getElementById("roi").value = calc.roi;
   document.getElementById("swr").value = calc.swr;
   document.getElementById("networth").value = calc.networth;
-}
+
+  var color = FI.get_query_variable("color")
+  var color_input = document.getElementById("color");
+  if (color) {
+    color_input.value = color.replace("%23", "#");
+  }
+  else {
+    color_input.value = "#1100ff";
+  }
+};
 
 FI.graph_fi = function(networths) {
   // networths is an array of numbers representing the growing (or shrinking)
