@@ -67,6 +67,8 @@ FI.set_form_defaults = function(calc) {
   else {
     color_input.value = "#1100ff";
   }
+
+  document.getElementById("label").value = FI.get_query_variable("label") || "Networth";
 };
 
 FI.graph_fi_plotly = function(networths) {
@@ -86,10 +88,21 @@ FI.graph_fi_plotly = function(networths) {
     line: {
       color: document.getElementById("color").value,
     },
+    name: document.getElementById("label").value,
   };
+
   var data = [items];
 
-  Plotly.newPlot("canvas_div", data);
+  var layout = {
+    xaxis: {
+      title: "Months",
+    },
+    yaxis: {
+      title: "Net worth",
+    },
+  };
+
+  Plotly.newPlot("canvas_div", data, layout);
 };
 
 FI.calculate_fi();
