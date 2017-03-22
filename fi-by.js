@@ -89,6 +89,7 @@ FI.graph_fi_plotly = function(networths) {
       color: document.getElementById("color").value,
     },
     name: document.getElementById("label").value,
+    hoverinfo: "name+x+y",
   };
 
   var data = [items];
