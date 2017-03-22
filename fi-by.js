@@ -94,6 +94,29 @@ FI.graph_fi_plotly = function(networths) {
 
   var data = [items];
 
+  // TODO: remove when done testing
+  var x2 = [];
+  var y2 = [];
+  for (i = 0; i < networths.length / 1.50; i++) {
+    x2.push(i);
+    var networth = networths[i].toFixed(2);
+    y2.push(networths[i].toFixed(2) / 2);
+  }
+
+  var items2 = {
+    x: x2,
+    y: y2,
+    mode: "lines",
+    line: {
+      color: "#4A2756",
+    },
+    name: "Test line",
+    hoverinfo: "name+x+y",
+  };
+
+  data.push(items2);
+  // TODO: end TODO testing
+
   var layout = {
     xaxis: {
       title: "Months",
