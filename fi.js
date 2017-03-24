@@ -6,6 +6,40 @@ var FI = {};
 // What version of this library are we using?
 FI.version = "0.0.3";
 
+// Return a list of query parameters in [[key1, value1], [key2, value2], ...]
+// form. Numeric values will be changed to an actual Number instead of a
+// string.
+FI.get_query_parameters = function() {
+  var query_string = window.location.search.substring(1); // income=100000&expenses=80000
+  var queries = query_string.split("&"); // ["income=100000", "expenses=80000"]
+
+  var i;
+  var parameters = [];
+  for (i = 0; i < queries.length; i++) {
+    var query = queries[i].split("=");  // ["income", "100000"]
+    // Attempt to convert the value to a number, if applicable
+    // TODO: this doesn't work for "0". Number("0") evaluates to false. Compare to NaN?
+    query[1] = Number(query[1]) || query[1];  // ["income", 100000]
+    parameters.push(query);
+  }
+  return parameters;
+};
+
+// Return a list of query groups, based on the numerical naming of each query
+// parameter. Parameters ending in the same number will be grouped together
+// (var1, anothervar1, ...). Parameters with no ending number will also be
+// grouped together (avar, somethingelse, ...). For example, the following URL
+// query
+//    ?income1=100000&expenses1=80000&income2=50000&expenses2=30000&a=3&b=4
+// will return
+//    [{income1: 100000, expenses1: 80000},
+//     {income2: 50000, expenses2: 30000},
+//     {a: 3, b: 4}]
+FI.get_query_groups = function() {
+  // TODO: is this the correct way to format the output? Will this actually
+  // make it easy to incorporate user input into the form on the page?
+};
+
 // A sample calculation object that lets us determine when the user will be
 // financially independent.
 //
