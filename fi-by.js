@@ -30,11 +30,11 @@ FI.get_user_calculation = function() {
   // Gets the user's input for calculating his time to financial independence
   var calc = Object.create(FI.FICalculation);
 
-  calc.income = Number(FI.get_query_variable("income")) || calc.income;
-  calc.expenses = Number(FI.get_query_variable("expenses")) || calc.expenses;
-  calc.roi = Number(FI.get_query_variable("roi")) || calc.roi;
-  calc.swr = Number(FI.get_query_variable("swr")) || calc.swr;
-  calc.networth = Number(FI.get_query_variable("networth")) || calc.networth;
+  calc.income = Number(FI.get_query_variable("income1")) || calc.income;
+  calc.expenses = Number(FI.get_query_variable("expenses1")) || calc.expenses;
+  calc.roi = Number(FI.get_query_variable("roi1")) || calc.roi;
+  calc.swr = Number(FI.get_query_variable("swr1")) || calc.swr;
+  calc.networth = Number(FI.get_query_variable("networth1")) || calc.networth;
 
   return calc;
 };
@@ -52,15 +52,15 @@ FI.get_query_variable = function(variable) {
 
 FI.set_form_defaults = function(calc) {
   // Set default values on the form fields
-  document.getElementById("income").value = calc.income;
-  document.getElementById("expenses").value = calc.expenses;
-  document.getElementById("savings").value = calc.savings();
-  document.getElementById("roi").value = calc.roi;
-  document.getElementById("swr").value = calc.swr;
-  document.getElementById("networth").value = calc.networth;
+  document.getElementById("income1").value = calc.income;
+  document.getElementById("expenses1").value = calc.expenses;
+  document.getElementById("savings1").value = calc.savings();
+  document.getElementById("roi1").value = calc.roi;
+  document.getElementById("swr1").value = calc.swr;
+  document.getElementById("networth1").value = calc.networth;
 
-  var color = FI.get_query_variable("color")
-  var color_input = document.getElementById("color");
+  var color = FI.get_query_variable("color1")
+  var color_input = document.getElementById("color1");
   if (color) {
     color_input.value = color.replace("%23", "#");
   }
@@ -68,7 +68,7 @@ FI.set_form_defaults = function(calc) {
     color_input.value = "#1100ff";
   }
 
-  document.getElementById("label").value = FI.get_query_variable("label") || "Networth";
+  document.getElementById("label1").value = FI.get_query_variable("label1") || "Networth";
 };
 
 FI.graph_fi_plotly = function(networths) {
@@ -86,9 +86,9 @@ FI.graph_fi_plotly = function(networths) {
     y: y,
     mode: "lines",
     line: {
-      color: document.getElementById("color").value,
+      color: document.getElementById("color1").value,
     },
-    name: document.getElementById("label").value,
+    name: document.getElementById("label1").value,
     hoverinfo: "name+x+y",
   };
 
