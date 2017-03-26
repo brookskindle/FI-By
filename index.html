@@ -19,6 +19,7 @@
     <script src="fi-by.js" defer></script>
     -->
     <script src="form.js" defer></script>
+    <script src="params.js" defer></script>
   </head>
 
   <body>
@@ -36,8 +37,6 @@
               <input id="income1" name="income1" value=100000 class="form-control"></input>
               <label for="expenses1">Annual expenses</label>
               <input id="expenses1" value=50000 class="form-control" name="expenses1"></input>
-              <label for="savings1">Annual savings</label>
-              <input id="savings1" value=50000 class="form-control" name="savings1" disabled></input>
               <label for="networth1">Current networth</label>
               <input id="networth1" value=0 class="form-control" name="networth1"></input>
               <label for="roi1">Annual return on investment (%)</label>
@@ -57,21 +56,6 @@
           </div>
 
         </form>
-      </div> <!-- row -->
-
-      <div class="row">
-        <center>
-          <div class="col-xs-12">
-            <p>
-            To support an annual income of <b>$</b><b id="expense_result">???</b> on a
-            <b id="withdrawal_rate_result">???</b><b>%</b> withdrawal rate, you will
-            need to accumulate <b>$</b><b id="nest_egg_result">???</b>.  With a savings
-            rate of <b id="savings_rate_result">???</b><b>%</b>, this will take
-            <b id="years_to_fi_result">unknown</b> years, at which point you will
-            be considered financially independent.
-            </p>
-          </div>
-        </center>
       </div> <!-- row -->
 
       <div id="canvas_div">

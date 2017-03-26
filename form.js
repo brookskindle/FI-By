@@ -7,7 +7,7 @@ Form = {};
 Form.add = function() {
   // Find the last calculation and copy it
   var calculations = document.getElementById("calculations");
-  var n = calculations.children.length;
+  var n = Form.n_calculations();
   var last_calculation = calculations.children[n - 1];
 
   var new_calculation = last_calculation.cloneNode(true);
@@ -35,14 +35,18 @@ Form.add = function() {
 };
 
 
+// Determine how many calculations we currently have
+Form.n_calculations = function() {
+  return document.getElementById("calculations").children.length;
+};
+
+
 // Return a new incremented string. IE "income1" will return "income2"
 // "income" will return "income1"
-// TODO: this won't work correctly if we have a number in the middle and at the
-// end, IE "income234stuff35"
 Form.increment = function(string) {
   // Do we have a number at the end of the string?
-  var match = string.match("[0-9]+");
-  if (match && string.endsWith(match[0])) {
+  var match = string.match("[0-9]+$");
+  if (match) {
     // Break string into two parts, word and num
     var num = string.slice(match.index);
     var word = string.slice(0, match.index);
