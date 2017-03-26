@@ -14,8 +14,11 @@
     <script src="https://cdn.plot.ly/plotly-1.2.0.min.js"></script>
 
     <!-- Custom javascript -->
+    <!--
     <script src="fi.js" defer></script>
     <script src="fi-by.js" defer></script>
+    -->
+    <script src="form.js" defer></script>
   </head>
 
   <body>
@@ -26,126 +29,33 @@
       </div>
 
       <div class="row">
-        <form id="fi_form" class="form-horizontal">
-          <div class="form-group">
-            <label class="control-label col-xs-2" for="income1">Annual income</label>
-            <div class="col-xs-10">
-              <input id="income1" name="income1" class="form-control"></input>
-            </div>
+        <form class="form-horizontal">
+          <div id="calculations">
+            <div> <!-- calculation -->
+              <label for="income1">Annual income</label>
+              <input id="income1" name="income1" value=100000 class="form-control"></input>
+              <label for="expenses1">Annual expenses</label>
+              <input id="expenses1" value=50000 class="form-control" name="expenses1"></input>
+              <label for="savings1">Annual savings</label>
+              <input id="savings1" value=50000 class="form-control" name="savings1" disabled></input>
+              <label for="networth1">Current networth</label>
+              <input id="networth1" value=0 class="form-control" name="networth1"></input>
+              <label for="roi1">Annual return on investment (%)</label>
+              <input id="roi1" value=5 class="form-control" name="roi1"></input>
+              <label for="swr1">Annual withdrawal rate (%)</label>
+              <input id="swr1" value=4 class="form-control" name="swr1"></input>
+              <label for="color1">Color</label>
+              <input id="color1" value="#1100ff" class="form-control" type="color" name="color1"></input>
+              <label for="label1">Label</label>
+              <input id="label1" value="Networth" class="form-control" name="label1"></input>
+            </div> <!-- calculation -->
           </div>
 
-          <div class="form-group">
-            <label class="control-label col-xs-2" for="expenses1">Annual expenses</label>
-            <div class="col-xs-10">
-              <input id="expenses1" class="form-control" name="expenses1"></input>
-            </div>
+          <div> <!-- buttons -->
+            <button type="button" id="add" class="btn btn-primary">Add calculation</button>
+            <button type="submit" class="btn btn-success">Calculate my FI date!</button>
           </div>
 
-          <div class="form-group">
-            <label class="control-label col-xs-2" for="savings1">Annual savings</label>
-            <div class="col-xs-10">
-              <input id="savings1" class="form-control" name="savings1" disabled></input>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="control-label col-xs-2" for="networth1">Current networth</label>
-            <div class="col-xs-10">
-              <input id="networth1" class="form-control" name="networth1"></input>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="control-label col-xs-2" for="roi1">Annual return on investment (%)</label>
-            <div class="col-xs-10">
-              <input id="roi1" class="form-control" name="roi1"></input>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="control-label col-xs-2" for="swr1">Annual withdrawal rate (%)</label>
-            <div class="col-xs-10">
-              <input id="swr1" class="form-control" name="swr1"></input>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="control-label col-xs-2" for="color1">Color</label>
-            <div class="col-xs-10">
-              <input id="color1" class="form-control" type="color" name="color1"></input>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="control-label col-xs-2" for="label1">Label</label>
-            <div class="col-xs-10">
-              <input id="label1" class="form-control" name="label1"></input>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <div class="col-xs-offset-2 col-xs-2">
-              <button type="submit" class="btn btn-primary">Calculate my FI date!</button>
-            </div>
-          </div>
-
-          <!-- second calculation -->
-
-          <div class="form-group">
-            <label class="control-label col-xs-2" for="income2">Annual income</label>
-            <div class="col-xs-10">
-              <input id="income2" name="income2" class="form-control"></input>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="control-label col-xs-2" for="expenses2">Annual expenses</label>
-            <div class="col-xs-10">
-              <input id="expenses2" class="form-control" name="expenses2"></input>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="control-label col-xs-2" for="savings2">Annual savings</label>
-            <div class="col-xs-10">
-              <input id="savings2" class="form-control" name="savings2" disabled></input>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="control-label col-xs-2" for="networth2">Current networth</label>
-            <div class="col-xs-10">
-              <input id="networth2" class="form-control" name="networth2"></input>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="control-label col-xs-2" for="roi2">Annual return on investment (%)</label>
-            <div class="col-xs-10">
-              <input id="roi2" class="form-control" name="roi2"></input>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="control-label col-xs-2" for="swr2">Annual withdrawal rate (%)</label>
-            <div class="col-xs-10">
-              <input id="swr2" class="form-control" name="swr2"></input>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="control-label col-xs-2" for="color2">Color</label>
-            <div class="col-xs-10">
-              <input id="color2" class="form-control" type="color" name="color2"></input>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="control-label col-xs-2" for="label2">Label</label>
-            <div class="col-xs-10">
-              <input id="label2" class="form-control" name="label2"></input>
-            </div>
-          </div>
         </form>
       </div> <!-- row -->
 
