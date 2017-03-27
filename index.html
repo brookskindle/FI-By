@@ -27,10 +27,13 @@
         <p>Calculate when you will achieve financial independence</p>
       </div>
 
-      <div class="row">
-        <form class="form-horizontal">
+      <form class="form-horizontal">
+        <button type="submit" class="btn btn-success">Calculate my FI date!</button>
+        <button type="button" id="add" class="btn btn-primary">Add calculation</button>
+
+        <div class="row">
           <div id="calculations">
-            <div> <!-- calculation -->
+            <div class="col-md-3"> <!-- calculation -->
               <label for="income1">Annual income</label>
               <input id="income1" name="income1" value=100000 class="form-control"></input>
               <label for="expenses1">Annual expenses</label>
@@ -45,16 +48,10 @@
               <input id="color1" value="#1100ff" class="form-control" type="color" name="color1"></input>
               <label for="label1">Label</label>
               <input id="label1" value="Networth" class="form-control" name="label1"></input>
-            </div> <!-- calculation -->
-          </div>
-
-          <div> <!-- buttons -->
-            <button type="submit" class="btn btn-success">Calculate my FI date!</button>
-            <button type="button" id="add" class="btn btn-primary">Add calculation</button>
-          </div>
-
-        </form>
-      </div> <!-- row -->
+            </div>
+          </div> <!-- calculations -->
+        </div> <!-- row -->
+      </form>
 
       <div id="canvas_div">
       </div>
