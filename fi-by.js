@@ -16,7 +16,7 @@ FI.graph_fi_plotly = function() {
       var key = group[k][0];
       var value = group[k][1];
       var color;
-      var label;
+      var name;
       if (key.startsWith("income")) {
         calculation.income = value;
       }
@@ -35,8 +35,8 @@ FI.graph_fi_plotly = function() {
       else if (key.startsWith("color")) {
         color = value;
       }
-      else if (key.startsWith("label")) {
-        label = value;
+      else if (key.startsWith("name")) {
+        name = value;
       }
     } // for k
     var networths = calculation.per_month();
@@ -57,7 +57,7 @@ FI.graph_fi_plotly = function() {
       line: {
         color: color,
       },
-      name: label,
+      name: name,
       hoverinfo: "name+x+y",
     };
 

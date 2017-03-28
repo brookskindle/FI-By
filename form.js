@@ -7,37 +7,40 @@ Form = {};
 Form.add = function() {
   // Find the last calculation and copy it
   var calculations = document.getElementById("calculations");
-  var n = Form.n_calculations();
-  var last_calculation = calculations.children[n - 1];
-
+  var nforms = document.forms.length;
+  var last_calculation = document.forms[nforms - 1];
   var new_calculation = last_calculation.cloneNode(true);
 
+  // modify all form inputs and labels to have new ids
   var i;
-  for (i = 0; i < new_calculation.children.length; i++) {
-    var child = new_calculation.children[i];
-    if (child.htmlFor) {
-      child.htmlFor = Form.increment(child.htmlFor);
+  var inputs = new_calculation.getElementsByTagName("input");
+  for (i = 0; i < inputs.length; i++) {
+    var input = inputs[i];
+    input.id = Form.increment(input.id);
+
+    // if the color input, randomize
+    if (input.id.startsWith("color")) {
+      input.value = Form.random_hex();
     }
-    if (child.id) {
-      child.id = Form.increment(child.id);
-    }
-    if (child.name) {
-      child.name = Form.increment(child.name);
-    }
-    if (child.id && child.id.startsWith("label")) {
-      child.value = Form.increment(child.value);
-    }
-    if (child.id.startsWith("color")) {
-      child.value = Form.random_hex();
+    else if (input.id.startsWith("name")) {
+      input.value = Form.increment(input.value);
     }
   }
+
+  var labels = new_calculation.getElementsByTagName("label");
+  for (i = 0; i < labels.length; i++) {
+    var label = labels[i];
+    label.htmlFor = Form.increment(label.htmlFor);
+  }
+
+  // Add our new form
   calculations.appendChild(new_calculation);
 };
 
 
 // Determine how many calculations we currently have
 Form.n_calculations = function() {
-  return document.getElementById("calculations").children.length;
+  return document.forms.length;
 };
 
 

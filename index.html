@@ -27,30 +27,27 @@
     </nav>
 
     <div class="container">
-      <form class="form-horizontal">
-        <button type="submit" class="btn btn-success">Calculate my FI date!</button>
-        <button type="button" id="add" class="btn btn-primary">Add calculation</button>
-        <div class="row">
-          <div id="calculations">
-            <div class="col-md-3"> <!-- calculation -->
-              <label for="income1">Annual income</label>
-              <input id="income1" name="income1" value=100000 class="form-control"></input>
-              <label for="expenses1">Annual expenses</label>
-              <input id="expenses1" value=50000 class="form-control" name="expenses1"></input>
-              <label for="networth1">Current networth</label>
-              <input id="networth1" value=0 class="form-control" name="networth1"></input>
-              <label for="roi1">Annual return on investment (%)</label>
-              <input id="roi1" value=5 class="form-control" name="roi1"></input>
-              <label for="swr1">Annual withdrawal rate (%)</label>
-              <input id="swr1" value=4 class="form-control" name="swr1"></input>
-              <label for="color1">Color</label>
-              <input id="color1" value="#1100ff" class="form-control" type="color" name="color1"></input>
-              <label for="label1">Label</label>
-              <input id="label1" value="Networth" class="form-control" name="label1"></input>
-            </div>
-          </div> <!-- calculations -->
-        </div> <!-- row -->
-      </form>
+      <button type="button" class="btn btn-success">Calculate my FI date!</button>
+      <button type="button" id="add" class="btn btn-primary">Add calculation</button>
+
+      <div id="calculations">
+        <form class="form-horizontal">
+          <label for="income1">Annual income</label>
+          <input id="income1" value=100000 class="form-control income"></input>
+          <label for="expenses1">Annual expenses</label>
+          <input id="expenses1" value=50000 class="form-control expenses"></input>
+          <label for="networth1">Current networth</label>
+          <input id="networth1" value=0 class="form-control networth"></input>
+          <label for="roi1">Annual return on investment (%)</label>
+          <input id="roi1" value=5 class="form-control roi"></input>
+          <label for="swr1">Annual withdrawal rate (%)</label>
+          <input id="swr1" value=4 class="form-control swr"></input>
+          <label for="color1">Color</label>
+          <input id="color1" value="#00aaff" class="form-control color" type="color"></input>
+          <label for="name1">Name</label>
+          <input id="name1" value="Networth" class="form-control name"></input>
+        </form>
+      </div> <!-- calculations -->
 
       <div id="canvas_div">
       </div>
