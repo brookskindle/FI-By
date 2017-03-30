@@ -1,14 +1,14 @@
 // form.js
 // Code to manipulate the financial independence form
 
-fi = {};
+form = {};
 
-// Add a new calculation form to the page
-fi.addForm = function() {
+// Create and return a new calculation form based on the most recent form
+// created
+form.createForm = function() {
   // Find the last form and copy it
-  var container = document.getElementById("calculations");
-  var forms = container.getElementsByTagName("form");
-  var lastForm = calculations[forms.length - 1];
+  var forms = form.getForms();
+  var lastForm = forms[forms.length - 1];
   var newForm = lastForm.cloneNode(true);
 
   // modify all form inputs and labels to have new ids
@@ -16,31 +16,52 @@ fi.addForm = function() {
   var inputs = newForm.getElementsByTagName("input");
   for (i = 0; i < inputs.length; i++) {
     var input = inputs[i];
-    input.id = fi.increment(input.id);
+    input.id = form.increment(input.id);
 
     // Make sure that the new color and name are not the same as the previous
     // form's color and name.
     if (input.id.startsWith("color")) {
-      input.value = fi.randomHex();
+      input.value = form.randomColor();
     }
     else if (input.id.startsWith("name")) {
-      input.value = fi.increment(input.value);
+      input.value = form.increment(input.value);
     }
   }
 
   var labels = newForm.getElementsByTagName("label");
   for (i = 0; i < labels.length; i++) {
-    labels[i].htmlFor = fi.increment(labels[i].htmlFor);
+    labels[i].htmlFor = form.increment(labels[i].htmlFor);
   }
 
-  // Add our new form
-  container.appendChild(newForm);
+  return newForm;
 };
 
 
-// Return a new incremented string. IE, "income1" will return "income2" and
-// "income" will return "income2"
-fi.increment = function(string) {
+// Add a new form to the webpage
+form.addForm = function() {
+  var f = form.createForm();
+  document.getElementById("calculations").appendChild(f);
+};
+
+
+// Return the forms
+form.getForms = function() {
+  return document.getElementById("calculations").getElementsByTagName("form");
+};
+
+
+// Return the number of calculation forms that currently exist on the page
+form.numForms = function() {
+  return form.getForms().length;
+};
+
+
+// Increment a string based on its trailing number.
+// Examples:
+//  "income1" --> "income2"
+//  "income10" --> "income11"
+//  "income" --> "income2"
+form.increment = function(string) {
   // Do we have a number at the end of the string?
   var match = string.match("[0-9]+$");
   if (match) {
@@ -54,42 +75,17 @@ fi.increment = function(string) {
   }
 };
 
-// From: https://www.paulirish.com/2009/random-hex-color-code-snippets/
-fi.randomHex = function() {
+// Generate a random hexadecimal color
+// https://www.paulirish.com/2009/random-hex-color-code-snippets/
+form.randomColor = function() {
   return '#'+Math.floor(Math.random()*16777215).toString(16);
-};
-
-
-// Retrieve the values in each form and perform calculations on that
-fi.calculate = function() {
-  history.pushState(null, null, fi.buildParameters());
-};
-
-
-fi.buildParameters = function() {
-  // Build and return the string of query parameters that represents the
-  // calculations the user has created.
-  var i;
-  var parameters = "?";
-  for (i = 0; i < document.forms.length; i++) {
-    var form = document.forms[i];
-    var inputs = form.getElementsByTagName("input");
-    var k;
-    for (k = 0; k < inputs.length; k++) {
-      parameters += inputs[k].id + "=" + inputs[k].value + "&";
-    }
-  }
-  parameters = parameters.slice(0, -1); // lop off trailing "&"
-  // TODO: do I need to encode things like hex colors before returning the
-  // string?
-  return parameters;
 };
 
 
 // Return a list of query parameters in [[key1, value1], [key2, value2], ...]
 // form. Numeric values will be changed to an actual Number instead of a
 // string.
-fi.getQueryParameters = function() {
+form.getQueryParameters = function() {
   var queryString = window.location.search.substring(1); // income=100000&expenses=80000
   var queries = queryString.split("&"); // ["income=100000", "expenses=80000"]
 
@@ -118,7 +114,7 @@ fi.getQueryParameters = function() {
 // string "asdf2" has a group number of 2. The string "income1" has a group
 // number of 1, and the string "networth" has a group number of 0, as does
 // "networth0"
-fi.getGroup = function(string) {
+form.getGroup = function(string) {
   var match = string.match("[0-9]+$");
   if (!match) {
     return 0; // no match, return the default group 0
@@ -149,13 +145,13 @@ fi.getGroup = function(string) {
 //        ["expenses2", 30000],
 //      ],
 //    ]
-fi.getQueryGroups = function() {
-  var params = fi.getQueryParameters();
+form.getQueryGroups = function() {
+  var params = form.getQueryParameters();
   var groups = [];
   var i;
   for (i = 0; i < params.length; i++) {
     var key = params[i][0];
-    var num = fi.getGroup(key)
+    var num = form.getGroup(key)
     if (!groups[num]) {
       // group doesn't exist, create it first
       groups[num] = [];
@@ -166,12 +162,13 @@ fi.getQueryGroups = function() {
 };
 
 
-fi.setFormDefaults = function () {
+// Uses the URL query parameters to set the values in each form.
+form.setFormDefaults = function () {
   // If the user has any query parameters set, let's make sure to grab them and
   // re-create the form appropriately.
-  fi.addEnoughForms();
+  form.addEnoughForms();
 
-  var p = fi.getQueryParameters();
+  var p = form.getQueryParameters();
   var i;
   for (i = 0; i < p.length; i++) {
     var key = p[i][0];
@@ -182,21 +179,47 @@ fi.setFormDefaults = function () {
 
 
 // Add additional form calculations if the user has multiple query parameters
-fi.addEnoughForms = function() {
-  var n = fi.nCalculations();
-  var groups = fi.getQueryGroups();
+form.addEnoughForms = function() {
+  var n = form.numForms();
+  var groups = form.getQueryGroups();
 
   if (groups.length > n) {
     // Must add some forms, but how many?
     var remaining = groups.length - n;
     var i;
     for (i = 0; i < remaining; i++) {
-      fi.addForm();  // Add a calculation
+      form.addForm();  // Add a calculation
     }
   }
 };
 
 
-document.getElementById("add").onclick = fi.addForm;
-document.getElementById("calculate").onclick = fi.calculate;
-fi.setFormDefaults();
+// Retrieve the values in each form and perform calculations on that
+form.calculate = function() {
+  history.pushState(null, null, form.buildParameters());
+};
+
+
+// Build and return the string of query parameters that represents the
+// calculations the user has created.
+form.buildParameters = function() {
+  var i;
+  var parameters = "?";
+  for (i = 0; i < document.forms.length; i++) {
+    var form = document.forms[i];
+    var inputs = form.getElementsByTagName("input");
+    var k;
+    for (k = 0; k < inputs.length; k++) {
+      parameters += inputs[k].id + "=" + inputs[k].value + "&";
+    }
+  }
+  parameters = parameters.slice(0, -1); // lop off trailing "&"
+  // TODO: do I need to encode things like hex colors before returning the
+  // string?
+  return parameters;
+};
+
+
+document.getElementById("add").onclick = form.addForm;
+document.getElementById("calculate").onclick = form.calculate;
+form.setFormDefaults();
