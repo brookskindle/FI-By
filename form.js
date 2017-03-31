@@ -28,6 +28,16 @@ form.createForm = function() {
     }
   }
 
+  var as = newForm.getElementsByTagName("a");
+  for (i = 0; i < as.length; i++) {
+    as[i].href = form.increment(as[i].href);
+  }
+
+  var divs = newForm.getElementsByTagName("div");
+  for (i = 0; i < divs.length; i++) {
+    divs[i].id = form.increment(divs[i].id)
+  }
+
   var labels = newForm.getElementsByTagName("label");
   for (i = 0; i < labels.length; i++) {
     labels[i].htmlFor = form.increment(labels[i].htmlFor);
