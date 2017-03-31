@@ -1,7 +1,7 @@
 # FI By
 Determine when you will achieve financial independence.
 
-View the calculator online at http://brookskindle.github.io/fi-by
+View the calculator online at http://brookskindle.github.io/FI-By
 
 ## Financial Independence?
 Financial independence (FI for short) is the state at which you no longer have
