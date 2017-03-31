@@ -173,7 +173,7 @@ form.setFormDefaults = function () {
   for (i = 0; i < p.length; i++) {
     var key = p[i][0];
     var value = p[i][1];
-    document.getElementById(key).value = value;
+    document.getElementById(key).value = decodeURIComponent(value);
   }
 };
 
@@ -197,6 +197,7 @@ form.addEnoughForms = function() {
 // Retrieve the values in each form and perform calculations on that
 form.calculate = function() {
   history.pushState(null, null, form.buildParameters());
+  form.graphAllForms();
 };
 
 
@@ -205,18 +206,82 @@ form.calculate = function() {
 form.buildParameters = function() {
   var i;
   var parameters = "?";
-  for (i = 0; i < document.forms.length; i++) {
-    var form = document.forms[i];
-    var inputs = form.getElementsByTagName("input");
+  var forms = form.getForms();
+  for (i = 0; i < forms.length; i++) {
+    var inputs = forms[i].getElementsByTagName("input");
     var k;
     for (k = 0; k < inputs.length; k++) {
-      parameters += inputs[k].id + "=" + inputs[k].value + "&";
+      parameters += inputs[k].id + "=" + encodeURIComponent(inputs[k].value) + "&";
     }
   }
   parameters = parameters.slice(0, -1); // lop off trailing "&"
-  // TODO: do I need to encode things like hex colors before returning the
-  // string?
   return parameters;
+};
+
+
+// Calculate the FI date for each scenario and display the results on a graph
+form.graphAllForms = function() {
+  form.initPlotly();
+  var i;
+  var forms = form.getForms();
+  for (i = 0; i < forms.length; i++) {
+    var calculation = form.calculationFromForm(forms[i]);
+    var name = forms[i].getElementsByClassName("name")[0].value;
+    var color = forms[i].getElementsByClassName("color")[0].value;
+    form.graphCalculation(calculation, name, color);
+  }
+};
+
+
+// Initialize plotly so we can graph
+form.initPlotly = function() {
+  var layout = {
+    xaxis: {
+      title: "Months",
+    },
+    yaxis: {
+      title: "Net worth",
+    },
+  };
+  Plotly.newPlot("canvas_div", [], layout);
+};
+
+
+// Return a FI calculation from a given HTML form
+form.calculationFromForm = function(f) {
+  var calc = Object.create(FI.FICalculation);
+  calc.income = Number(f.getElementsByClassName("income")[0].value);
+  calc.expenses = Number(f.getElementsByClassName("expenses")[0].value);
+  calc.roi = Number(f.getElementsByClassName("roi")[0].value);
+  calc.swr = Number(f.getElementsByClassName("swr")[0].value);
+  calc.networth = Number(f.getElementsByClassName("networth")[0].value);
+  return calc;
+};
+
+
+// Plot a FI calculation on a graph
+form.graphCalculation = function(calculation, name, color) {
+  var networths = calculation.per_month();
+  var x = [];
+  var y = [];
+  var i = 0;
+  for (i = 0; i < networths.length; i++) {
+    x.push(i);
+    y.push(networths[i]);
+  }
+
+  var data = {
+    x: x,
+    y: y,
+    mode: "lines",
+    line: {
+      color: color,
+    },
+    name: name,
+    hoverinfo: "name+x+y",
+  };
+
+  Plotly.addTraces("canvas_div", [data]);
 };
 
 
