@@ -163,7 +163,7 @@ form.getQueryGroups = function() {
 
 
 // Uses the URL query parameters to set the values in each form.
-form.setFormDefaults = function () {
+form.createFormsFromURI = function () {
   // If the user has any query parameters set, let's make sure to grab them and
   // re-create the form appropriately.
   form.addEnoughForms();
@@ -196,7 +196,7 @@ form.addEnoughForms = function() {
 
 // Retrieve the values in each form and perform calculations on that
 form.calculate = function() {
-  history.pushState(null, null, form.buildParameters());
+  history.replaceState(null, null, form.buildParameters());
   form.graphAllForms();
 };
 
@@ -287,4 +287,7 @@ form.graphCalculation = function(calculation, name, color) {
 
 document.getElementById("add").onclick = form.addForm;
 document.getElementById("calculate").onclick = form.calculate;
-form.setFormDefaults();
+if (window.location.search !== "") {
+  form.createFormsFromURI();
+}
+document.getElementById("calculate").click();
