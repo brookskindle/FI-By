@@ -34,6 +34,9 @@
       <div id="calculations" class="row">
         <form class="form-horizontal col-sm-4">
           <label for="income1">Annual income</label>
+          <button type="button" class="close" aria-label="Close" onclick="this.parentElement.parentElement.removeChild(this.parentElement);">
+            <span aria-hidden="true">&times;</span>
+          </button>
           <input id="income1" value=100000 class="form-control income"></input>
           <label for="expenses1">Annual expenses</label>
           <input id="expenses1" value=50000 class="form-control expenses"></input>

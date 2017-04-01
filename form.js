@@ -134,6 +134,15 @@ form.getGroup = function(string) {
 };
 
 
+// Return a string without the group number. IE, an input of "input13" will
+// return "input"
+form.withoutGroup = function(string) {
+  var match = string.match("[0-9]+$");
+  var base = string.slice(0, match.index);
+  return base;
+}
+
+
 // Return a list of query groups, based on the numerical naming of each query
 // parameter. Parameters ending in the same number will be grouped together
 // (var1, anothervar1, ...). Parameters with no ending number will also be
@@ -221,7 +230,9 @@ form.buildParameters = function() {
     var inputs = forms[i].getElementsByTagName("input");
     var k;
     for (k = 0; k < inputs.length; k++) {
-      parameters += inputs[k].id + "=" + encodeURIComponent(inputs[k].value) + "&";
+      var key = form.withoutGroup(inputs[k].id) + String(i+1);
+      var value = encodeURIComponent(inputs[k].value);
+      parameters += key + "=" + value + "&";
     }
   }
   parameters = parameters.slice(0, -1); // lop off trailing "&"
