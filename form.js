@@ -247,7 +247,8 @@ form.graphAllForms = function() {
 form.initPlotly = function() {
   var layout = {
     xaxis: {
-      title: "Months",
+      title: "Years",
+      hoverformat: ".1f",
     },
     yaxis: {
       title: "Net worth",
@@ -276,7 +277,7 @@ form.graphCalculation = function(calculation, name, color) {
   var y = [];
   var i = 0;
   for (i = 0; i < networths.length; i++) {
-    x.push(i);
+    x.push((i/12));
     y.push(networths[i]);
   }
 
