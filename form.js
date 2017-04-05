@@ -313,3 +313,6 @@ if (window.location.search !== "") {
   form.createFormsFromURI();
 }
 document.getElementById("calculate").click();
+window.onresize = function () {
+  document.getElementById("calculate").click();
+};
