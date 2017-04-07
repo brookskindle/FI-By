@@ -217,6 +217,63 @@ form.addEnoughForms = function() {
 form.calculate = function() {
   history.replaceState(null, null, form.buildParameters());
   form.graphAllForms();
+  form.writeAllResults();
+};
+
+
+// Calculate the FI date for each scenario and display the results on a graph
+form.graphAllForms = function() {
+  form.initPlotly();
+  var i;
+  var forms = form.getForms();
+  for (i = 0; i < forms.length; i++) {
+    var calculation = form.calculationFromForm(forms[i]);
+    var name = forms[i].getElementsByClassName("name")[0].value;
+    var color = forms[i].getElementsByClassName("color")[0].value;
+    form.graphCalculation(calculation, name, color);
+  }
+};
+
+
+// Write a text-version of the results to the screen
+form.writeAllResults = function() {
+  // Clear old results
+  var results = document.getElementById("results")
+  var result_template = results.getElementsByClassName("result")[0].cloneNode(true);
+  while (results.hasChildNodes()) {
+    results.removeChild(results.lastChild);
+  }
+
+  // Add new results
+  var i;
+  var forms = form.getForms();
+  for (i = 0; i < forms.length; i++) {
+    var calculation = form.calculationFromForm(forms[i]);
+    var result = form.resultFromCalculation(result_template, calculation);
+    results.appendChild(result);
+  }
+};
+
+
+// Return the clone of a result template, modified to be accurate for the given
+// calculation
+form.resultFromCalculation = function(template, calculation) {
+  var result = template.cloneNode(true);
+
+  var expenses = result.getElementsByClassName("expenses")[0];
+  var swr = result.getElementsByClassName("swr")[0];
+  var nestegg = result.getElementsByClassName("nestegg")[0];
+  var savings = result.getElementsByClassName("savings")[0];
+  var roi = result.getElementsByClassName("roi")[0];
+  var years = result.getElementsByClassName("years")[0];
+
+  expenses.innerHTML = calculation.expenses.toLocaleString();
+  swr.innerHTML = calculation.swr;
+  nestegg.innerHTML = calculation.nestegg().toLocaleString();
+  savings.innerHTML = calculation.savings().toLocaleString();
+  roi.innerHTML = calculation.roi;
+  years.innerHTML = calculation.years_to_fi().toFixed(1);
+  return result;
 };
 
 
@@ -237,20 +294,6 @@ form.buildParameters = function() {
   }
   parameters = parameters.slice(0, -1); // lop off trailing "&"
   return parameters;
-};
-
-
-// Calculate the FI date for each scenario and display the results on a graph
-form.graphAllForms = function() {
-  form.initPlotly();
-  var i;
-  var forms = form.getForms();
-  for (i = 0; i < forms.length; i++) {
-    var calculation = form.calculationFromForm(forms[i]);
-    var name = forms[i].getElementsByClassName("name")[0].value;
-    var color = forms[i].getElementsByClassName("color")[0].value;
-    form.graphCalculation(calculation, name, color);
-  }
 };
 
 
