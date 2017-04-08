@@ -248,18 +248,20 @@ form.writeAllResults = function() {
   var i;
   var forms = form.getForms();
   for (i = 0; i < forms.length; i++) {
-    var calculation = form.calculationFromForm(forms[i]);
-    var result = form.resultFromCalculation(result_template, calculation);
+    var result = form.resultFromForm(result_template, forms[i]);
     results.appendChild(result);
   }
 };
 
 
 // Return the clone of a result template, modified to be accurate for the given
-// calculation
-form.resultFromCalculation = function(template, calculation) {
+// form calculation
+form.resultFromForm = function(template, theform) {
+  var calculation = form.calculationFromForm(theform);
   var result = template.cloneNode(true);
 
+  var name = result.getElementsByClassName("name")[0];
+  var color = result.getElementsByClassName("color")[0];
   var expenses = result.getElementsByClassName("expenses")[0];
   var swr = result.getElementsByClassName("swr")[0];
   var nestegg = result.getElementsByClassName("nestegg")[0];
@@ -267,6 +269,8 @@ form.resultFromCalculation = function(template, calculation) {
   var roi = result.getElementsByClassName("roi")[0];
   var years = result.getElementsByClassName("years")[0];
 
+  name.innerHTML = theform.getElementsByClassName("name")[0].value;
+  color.style.color = theform.getElementsByClassName("color")[0].value;
   expenses.innerHTML = calculation.expenses.toLocaleString();
   swr.innerHTML = calculation.swr;
   nestegg.innerHTML = calculation.nestegg().toLocaleString();
