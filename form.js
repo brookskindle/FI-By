@@ -309,9 +309,9 @@ form.initPlotly = function() {
       hoverformat: ".1f",
     },
     yaxis: {
-      title: "Percent Funded",
+      title: "Percent of expenses covered",
     },
-    title: "Time to Fully Fund Portfolio",
+    title: "Time to financial independence",
   };
   Plotly.newPlot("canvas_div", [], layout);
 };
