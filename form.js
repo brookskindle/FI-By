@@ -311,6 +311,7 @@ form.initPlotly = function() {
     yaxis: {
       title: "Net worth",
     },
+    title: "Time to financial independence",
   };
   Plotly.newPlot("canvas_div", [], layout);
 };
@@ -334,9 +335,12 @@ form.graphCalculation = function(calculation, name, color) {
   var x = [];
   var y = [];
   var i = 0;
+  var nesteggs = [];
+  var nestegg = calculation.nestegg();
   for (i = 0; i < networths.length; i++) {
     x.push((i/12));
     y.push(networths[i]);
+    nesteggs.push(nestegg);
   }
 
   var data = {
@@ -348,9 +352,27 @@ form.graphCalculation = function(calculation, name, color) {
     },
     name: name,
     hoverinfo: "name+x+y",
+    legendgroup: name,
   };
 
-  Plotly.addTraces("canvas_div", [data]);
+  // Also display a horizontal dashed line indicating the nest egg goal for
+  // this calculation
+  var nestegg = {
+    //x: x,
+    //y: nesteggs,
+    x: [0, networths.length / 12],
+    y: [calculation.nestegg(), calculation.nestegg()],
+    mode: "lines",
+    line: {
+      color: color,
+      dash: 10,
+    },
+    hoverinfo: "none",
+    legendgroup: name,
+    showlegend: false,
+  };
+
+  Plotly.addTraces("canvas_div", [data, nestegg]);
 };
 
 
