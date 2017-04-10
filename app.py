@@ -2,6 +2,7 @@ from flask import Flask, render_template
 from flask_frozen import Freezer
 
 app = Flask(__name__)
+app.config["FREEZER_BASE_URL"] = "https://brookskindle.github.io/fi-by"
 freezer = Freezer(app)
 
 @app.cli.command()
