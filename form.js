@@ -309,7 +309,7 @@ form.initPlotly = function() {
       hoverformat: ".1f",
     },
     yaxis: {
-      title: "Net worth",
+      title: "Percent of expenses covered",
     },
     title: "Time to financial independence",
   };
@@ -335,12 +335,12 @@ form.graphCalculation = function(calculation, name, color) {
   var x = [];
   var y = [];
   var i = 0;
-  var nesteggs = [];
   var nestegg = calculation.nestegg();
   for (i = 0; i < networths.length; i++) {
     x.push((i/12));
-    y.push(networths[i]);
-    nesteggs.push(nestegg);
+    // How much of our portfolio has been funded so far?
+    var percent_funded = networths[i] / nestegg * 100;
+    y.push(percent_funded);
   }
 
   var data = {
@@ -355,24 +355,7 @@ form.graphCalculation = function(calculation, name, color) {
     legendgroup: name,
   };
 
-  // Also display a horizontal dashed line indicating the nest egg goal for
-  // this calculation
-  var nestegg = {
-    //x: x,
-    //y: nesteggs,
-    x: [0, networths.length / 12],
-    y: [calculation.nestegg(), calculation.nestegg()],
-    mode: "lines",
-    line: {
-      color: color,
-      dash: 10,
-    },
-    hoverinfo: "none",
-    legendgroup: name,
-    showlegend: false,
-  };
-
-  Plotly.addTraces("canvas_div", [data, nestegg]);
+  Plotly.addTraces("canvas_div", [data]);
 };
 
 
