@@ -10,6 +10,7 @@ env:
   global:
     - ENCRYPTION_LABEL: "389c70d48525"
     - COMMIT_AUTHOR_EMAIL: "brookskindle+git@gmail.com"
+    - FLASK_APP: "app.py"
 # Only kick off a TravisCI deploy on the given branches
 branches:
   only:
