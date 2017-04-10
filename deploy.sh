@@ -48,4 +48,4 @@ eval `ssh-agent -s`
 ssh-add deploy_key
 
 # Now that we're all set up, we can push.
-git push --force $SSH_REPO $TARGET_BRANCH
+git push --force $SSH_REPO master:$TARGET_BRANCH
