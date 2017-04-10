@@ -15,9 +15,9 @@
     <script src="https://cdn.plot.ly/plotly-1.2.0.min.js"></script>
 
     <!-- Custom javascript -->
-    <script src="fi.js" defer></script>
-    <script src="polyfill.js" defer></script>
-    <script src="form.js" defer></script>
+    <script src='{{ url_for("static", filename="fi.js") }}' defer></script>
+    <script src='{{ url_for("static", filename="polyfill.js") }}' defer></script>
+    <script src='{{ url_for("static", filename="form.js") }}' defer></script>
   </head>
 
   <body>
