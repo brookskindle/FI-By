@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% block scripts %}
+    <title>Calculate your FI date</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" defer></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+
+    <!-- Bootstrap requires jQuery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script>
+
+    <!-- Plotly -->
+    <script src="https://cdn.plot.ly/plotly-1.2.0.min.js"></script>
+
+    <!-- Custom javascript -->
+    <script src='{{ url_for("static", filename="fi.js") }}' defer></script>
+    <script src='{{ url_for("static", filename="polyfill.js") }}' defer></script>
+    <script src='{{ url_for("static", filename="form.js") }}' defer></script>
+    {% endblock %} {# scripts #}
+  </head>
+
+  <body>
+    {% block navbar %}
+    <nav class="navbar navbar-inverse">
+      <a href="index.html" class="navbar-brand">FI By</a>
+      <p class="navbar-text">Calculate when you will achieve financial independence</p>
+    </nav>
+    {% endblock %} {# navbar #}
+
+    <div class="container">
+      {% block page %}{% endblock %}
+    </div> <!-- container -->
+  </body>
+</html>
