@@ -25,7 +25,7 @@
   <body>
     {% block navbar %}
     <nav class="navbar navbar-inverse">
-      <a href="index.html" class="navbar-brand">FI By</a>
+      <a href='{{ url_for("index") }}' class="navbar-brand">FI By</a>
       <p class="navbar-text">Calculate when you will achieve financial independence</p>
     </nav>
     {% endblock %} {# navbar #}
