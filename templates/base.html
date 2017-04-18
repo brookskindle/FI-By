@@ -24,14 +24,12 @@
 
   <body>
     {% block navbar %}
-    <nav class="navbar navbar-inverse">
+    <nav class="navbar navbar-default">
       <a href='{{ url_for("index") }}' class="navbar-brand">FI By</a>
-      <p class="navbar-text">Calculate when you will achieve financial independence</p>
+      <p class="navbar-text">When will you be financially independent?</p>
     </nav>
     {% endblock %} {# navbar #}
 
-    <div class="container">
-      {% block page %}{% endblock %}
-    </div> <!-- container -->
+    {% block page %}{% endblock %}
   </body>
 </html>

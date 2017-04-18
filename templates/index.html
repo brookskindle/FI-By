@@ -4,22 +4,24 @@
 
 
 {% block page %}
-<div class="row">
-  <button type="button" id="calculate" class="btn btn-success">Calculate my FI date!</button>
-  <button type="button" id="add" class="btn btn-primary">Add calculation</button>
-</div>
+<div class="container">
+  <div id="calculations" class="row">
+    {{ form() }}
+  </div> <!-- calculations -->
 
-<div id="calculations" class="row">
-  {{ form() }}
-</div> <!-- calculations -->
-
-<div id="results" class="row" style="margin-top: 20px;">
-  {{ result() }}
-</div>
-
-<div class="row">
-  <div class="col-sm-12">
-    {{ graph() }}
+  <div class="row">
+    <button type="button" id="calculate" class="btn btn-success">Calculate my FI date!</button>
+    <button type="button" id="add" class="btn btn-primary">Add calculation</button>
   </div>
-</div>
+
+  <div id="results" class="row">
+    {{ result() }}
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      {{ graph() }}
+    </div>
+  </div>
+</div> <!-- container -->
 {% endblock %} {# page #}
