@@ -4,16 +4,46 @@
 
 
 {% block page %}
+<div class="page-header bg-primary">
+  <div class="container">
+    <h2>"When can I retire?"</h2>
+    <p>is an important question that people of all ages ask.</p>
+  </div>
+</div>
+
+
 <div class="container">
+  <p>
+    Retirement and financial independence can often seem like nothing more than
+    a pipe dream for the average person. If you have an extremely low or a zero
+    savings rate, you will likely have to work for the rest of your life just
+    to survive.
+    <br>
+    <br>
+    Fortunately, the inverse is also true. The higher your savings rate, the
+    faster you can retire - regardless of how much you make.  A janitor that
+    saves thirty-five percent of his forty-thousand a year income can retire
+    much earlier than a CEO making one million a year but only saving fifteen
+    percent.
+  </p>
+
   <div id="calculations" class="row">
     {{ form() }}
   </div> <!-- calculations -->
 
   <div class="row">
-    <button type="button" id="calculate" class="btn btn-success">Calculate my FI date!</button>
+    <button type="button" id="calculate" class="btn btn-success">Run the numbers</button>
     <button type="button" id="add" class="btn btn-primary">Add calculation</button>
   </div>
+</div> <!-- container -->
 
+<div class="page-header bg-primary">
+  <div class="container">
+    <h2>Results</h2>
+  </div>
+</div>
+
+<div class="container">
   <div id="results" class="row">
     {{ result() }}
   </div>
