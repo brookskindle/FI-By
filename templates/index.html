@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% from "macros.html" import form, result, graph %}
+{% from "macros.html" import form_template, result_template, graph %}
 
 
 {% block page %}
@@ -34,8 +34,8 @@
     simultaneously to find out.
   </p>
 
+  {{ form_template() }}
   <div id="calculations" class="row">
-    {{ form() }}
   </div> <!-- calculations -->
 
   <div class="row">
@@ -44,15 +44,15 @@
   </div>
 </div> <!-- container -->
 
-<div class="page-header bg-primary">
+<div id="results-header" class="hidden page-header bg-primary">
   <div class="container">
     <h2>Results</h2>
   </div>
 </div>
 
-<div class="container">
+{{ result_template() }}
+<div id="results-container" class="hidden container">
   <div id="results" class="row">
-    {{ result() }}
   </div>
 
   <div class="row">

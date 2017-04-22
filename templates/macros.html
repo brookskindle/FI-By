@@ -1,36 +1,41 @@
 {# macros.html - Contains simple macros for rendering parts of the page #}
 
-{# Render a form to calculate financial independence #}
-{% macro form() %}
-<form class="form-horizontal col-sm-4">
-  <label for="income1">Annual income</label>
-  <button type="button" class="close" aria-label="Close" onclick="this.parentElement.parentElement.removeChild(this.parentElement);">
+{# Render a form template used for calculating financial independence #}
+{% macro form_template() %}
+<form id="form0" class="hidden form-horizontal col-sm-4">
+  <label for="income0">Annual income</label>
+  <button type="button" class="close" aria-label="Close"
+    onclick="this.parentElement.parentElement.removeChild(this.parentElement);"
+  >
     <span aria-hidden="true">&times;</span>
   </button>
-  <input id="income1" value=100000 class="form-control income"></input>
-  <label for="expenses1">Annual expenses</label>
-  <input id="expenses1" value=50000 class="form-control expenses"></input>
-  <label for="networth1">Current networth</label>
-  <input id="networth1" value=0 class="form-control networth"></input>
+  <input id="income0" class="form-control income" placeholder="80000"></input>
+  <label for="expenses0">Annual expenses</label>
+  <input id="expenses0" class="form-control expenses" placeholder="40000"></input>
+  <label>Current networth</label>
+  <input id="networth0" class="form-control networth" placeholder="0"></input>
 
-  <a href="#options1" data-toggle="collapse">More options</a>
-  <div id="options1" class="collapse">
-    <label for="roi1">Annual return on investment (%)</label>
-    <input id="roi1" value=5 class="form-control roi"></input>
-    <label for="swr1">Annual withdrawal rate (%)</label>
-    <input id="swr1" value=4 class="form-control swr"></input>
-    <label for="name1">Name</label>
-    <input id="name1" value="Scenario 1" class="form-control name"></input>
-    <label for="color1">Color</label>
-    <input id="color1" value="#00aaff" class="form-control color" type="color"></input>
+  <a href="#options0" data-toggle="collapse">More options</a>
+  <div id="options0" class="collapse">
+    <label>Annual return on investment (%)</label>
+    <input id="roi0" value=5 class="form-control roi"></input>
+    <label>Annual withdrawal rate (%)</label>
+    <input id="swr0" value=4 class="form-control swr"></input>
+    <label>Name</label>
+    <input id="name0" value="Scenario 0" class="form-control name"></input>
+    <label>Color</label>
+    <input id="color0" value="#00aaff" class="form-control color" type="color"></input>
   </div>
 </form>
 {% endmacro %}
 
 
-{# Render a bootstrap panel to display text-based results for a calculation #}
-{% macro result() %}
-<div class="result col-sm-4">
+{#
+  Render a bootstrap panel template to display text-based results for a
+  calculation
+#}
+{% macro result_template() %}
+<div id="result0" class="hidden result col-sm-4">
   <div class="panel panel-default">
     <div class="panel-heading">
       <h3 class="panel-title">

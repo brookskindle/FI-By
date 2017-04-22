@@ -6,10 +6,19 @@ form = {};
 // Create and return a new calculation form based on the most recent form
 // created
 form.createForm = function() {
-  // Find the last form and copy it
+  // How many forms do we have?
   var forms = form.getForms();
-  var lastForm = forms[forms.length - 1];
-  var newForm = lastForm.cloneNode(true);
+  if (forms.length === 0) {
+    // No forms currently exist, create one from our template
+    var newForm = document.getElementById("form0").cloneNode(true);
+    newForm.className = newForm.className.replace("hidden", "");
+  }
+  else {
+    // At least one form exists, let's copy that one
+    var newForm = forms[forms.length - 1].cloneNode(true);
+  }
+  newForm.id = form.increment(newForm.id);
+
 
   // modify all form inputs and labels to have new ids
   var i;
@@ -216,6 +225,22 @@ form.addEnoughForms = function() {
 // Retrieve the values in each form and perform calculations on that
 form.calculate = function() {
   history.replaceState(null, null, form.buildParameters());
+  form.showResults();
+};
+
+
+form.simulateClick = function() {
+  form.calculate();
+  // Scroll to the results
+  $("html,body").animate({scrollTop: $("#results-header").offset().top}, 800);
+};
+
+
+form.showResults = function() {
+  var banner = document.getElementById("results-header");
+  banner.className = banner.className.replace("hidden", "");
+  var container = document.getElementById("results-container");
+  container.className = container.className.replace("hidden", "");
   form.graphAllForms();
   form.writeAllResults();
 };
@@ -239,7 +264,6 @@ form.graphAllForms = function() {
 form.writeAllResults = function() {
   // Clear old results
   var results = document.getElementById("results")
-  var result_template = results.getElementsByClassName("result")[0].cloneNode(true);
   while (results.hasChildNodes()) {
     results.removeChild(results.lastChild);
   }
@@ -248,7 +272,7 @@ form.writeAllResults = function() {
   var i;
   var forms = form.getForms();
   for (i = 0; i < forms.length; i++) {
-    var result = form.resultFromForm(result_template, forms[i]);
+    var result = form.resultFromForm(forms[i]);
     results.appendChild(result);
   }
 };
@@ -256,9 +280,10 @@ form.writeAllResults = function() {
 
 // Return the clone of a result template, modified to be accurate for the given
 // form calculation
-form.resultFromForm = function(template, theform) {
+form.resultFromForm = function(theform) {
   var calculation = form.calculationFromForm(theform);
-  var result = template.cloneNode(true);
+  var result = document.getElementById("result0").cloneNode(true);
+  result.removeAttribute("id");
 
   var name = result.getElementsByClassName("name")[0];
   var color = result.getElementsByClassName("color")[0];
@@ -360,11 +385,15 @@ form.graphCalculation = function(calculation, name, color) {
 
 
 document.getElementById("add").onclick = form.addForm;
-document.getElementById("calculate").onclick = form.calculate;
+document.getElementById("calculate").onclick = form.simulateClick;
 if (window.location.search !== "") {
   form.createFormsFromURI();
+  form.calculate();
 }
-document.getElementById("calculate").click();
+else {
+  form.addForm();
+}
 window.onresize = function () {
-  document.getElementById("calculate").click();
+  // Redraw the graph
+  form.graphAllForms();
 };
