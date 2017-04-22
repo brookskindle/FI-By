@@ -241,8 +241,8 @@ form.showResults = function() {
   banner.className = banner.className.replace("hidden", "");
   var container = document.getElementById("results-container");
   container.className = container.className.replace("hidden", "");
-  form.graphAllForms();
   form.writeAllResults();
+  form.graphAllForms();
 };
 
 
@@ -284,6 +284,7 @@ form.resultFromForm = function(theform) {
   var calculation = form.calculationFromForm(theform);
   var result = document.getElementById("result0").cloneNode(true);
   result.removeAttribute("id");
+  result.className = result.className.replace("hidden");
 
   var name = result.getElementsByClassName("name")[0];
   var color = result.getElementsByClassName("color")[0];
