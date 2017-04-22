@@ -61,3 +61,21 @@
 {% macro graph() %}
 <div id="canvas_div"></div>
 {% endmacro %}
+
+
+{% macro janitor_ceo_link(text) %}
+<a href='{{ url_for(".index",
+                    income1=40000,
+                    expenses1=26000,
+                    networth1=0,
+                    name1="Janitor",
+                    color1="#10aa10",
+                    income2=1000000,
+                    expenses2=850000,
+                    networth2=0,
+                    name2="CEO",
+                    color2="#fc0600",
+                   ) }}'>
+  {{ text }}
+</a>
+{% endmacro %}

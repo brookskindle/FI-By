@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% from "macros.html" import form_template, result_template, graph %}
+{% from "macros.html" import form_template, result_template, graph, janitor_ceo_link %}
 
 
 {% block page %}
@@ -21,17 +21,17 @@
     <br>
     Fortunately, the inverse is also true. The higher your savings rate, the
     faster you can retire - regardless of how much you make.  A janitor that
-    saves thirty-five percent of his forty-thousand a year income can retire
-    much earlier than a CEO making one million a year but saving only fifteen
-    percent.
+    saves thirty-five percent of his forty-thousand a year income
+    {{ janitor_ceo_link("can retire significantly earlier") }} than a CEO
+    making one million a year but saving only fifteen percent.
     <br>
     <br>
     When can <b>you</b> retire? I've made the following calculator for just
     that purpose! Using only your current annual income, expenses, and few
-    other numbers, you can plot a course to retirement. If you're curious what
-    saving an additional 10% of your income or picking up an extra shift at
-    work will do for your retirement date, you can compare multiple scenarios
-    simultaneously to find out.
+    other numbers, you can plot a course to retirement. You can even calculate
+    multiple scenarios at once if you're curious what, for example, saving an
+    additional 10% of your income or picking up an extra shift at work will do
+    for your retirement date.
   </p>
 
   {{ form_template() }}
