@@ -387,7 +387,7 @@ document.getElementById("add").onclick = form.addForm;
 document.getElementById("calculate").onclick = form.simulateClick;
 if (window.location.search !== "") {
   form.createFormsFromURI();
-  form.calculate();
+  form.simulateClick();
 }
 else {
   form.addForm();
