@@ -90,3 +90,6 @@ deploy_key.pub
 
 # Vim things
 *.swp
+
+# Project management things
+todo.md
