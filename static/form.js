@@ -131,12 +131,11 @@ form.getQueryParameters = function() {
 
 // Return the group number associated with a given string for example, the
 // string "asdf2" has a group number of 2. The string "income1" has a group
-// number of 1, and the string "networth" has a group number of 0, as does
-// "networth0"
+// number of 1, and the string "networth" has a group number of -1
 form.getGroup = function(string) {
   var match = string.match("[0-9]+$");
   if (!match) {
-    return 0; // no match, return the default group 0
+    return -1; // no match, return -1
   }
   var group = Number(string.slice(match.index));
   return group;
@@ -161,10 +160,6 @@ form.withoutGroup = function(string) {
 // will return
 //    [
 //      [
-//        ["a", 3],
-//        ["b", 4],
-//      ],
-//      [
 //        ["income1", 100000],
 //        ["expenses1", 80000],
 //      ],
@@ -180,6 +175,9 @@ form.getQueryGroups = function() {
   for (i = 0; i < params.length; i++) {
     var key = params[i][0];
     var num = form.getGroup(key)
+    if (num === -1) {
+      continue; // parameter doesn't have a number, skip it
+    }
     if (!groups[num]) {
       // group doesn't exist, create it first
       groups[num] = [];
