@@ -31,9 +31,13 @@ form.createForm = function() {
     // form's color and name.
     if (input.id.startsWith("color")) {
       input.value = form.randomColor();
+      // Make sure the glyph also receives the color update
+      $(input).closest("form").find("span.color").css("color", input.value);
     }
     else if (input.id.startsWith("name")) {
       input.value = form.increment(input.value);
+      // Make sure the panel-title text correctly gets the new name as well
+      $(input).closest("form").find("span.name").html(input.value);
     }
   }
 
@@ -251,8 +255,8 @@ form.graphAllForms = function() {
   var forms = form.getForms();
   for (i = 0; i < forms.length; i++) {
     var calculation = form.calculationFromForm(forms[i]);
-    var name = forms[i].getElementsByClassName("name")[0].value;
-    var color = forms[i].getElementsByClassName("color")[0].value;
+    var name = $(forms[i]).find("input.name").val();
+    var color = $(forms[i]).find("input.color").val();
     form.graphCalculation(calculation, name, color);
   }
 };
@@ -293,8 +297,8 @@ form.resultFromForm = function(theform) {
   var roi = result.getElementsByClassName("roi")[0];
   var years = result.getElementsByClassName("years")[0];
 
-  name.innerHTML = theform.getElementsByClassName("name")[0].value;
-  color.style.color = theform.getElementsByClassName("color")[0].value;
+  name.innerHTML = $(theform).find("input.name").val();
+  color.style.color = $(theform).find("input.color").val();
   expenses.innerHTML = calculation.expenses.toLocaleString();
   swr.innerHTML = calculation.swr;
   nestegg.innerHTML = calculation.nestegg().toLocaleString();
