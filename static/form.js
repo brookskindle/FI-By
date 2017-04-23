@@ -203,7 +203,9 @@ form.createFormsFromURI = function () {
   for (i = 0; i < p.length; i++) {
     var key = p[i][0];
     var value = p[i][1];
-    document.getElementById(key).value = decodeURIComponent(value);
+    var input = $("#" + key);
+    input.val(decodeURIComponent(value));
+    input.trigger("input"); // Simulate that this value was entered by the user
   }
 };
 

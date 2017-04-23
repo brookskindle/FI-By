@@ -8,9 +8,8 @@
       <h3 class="panel-title">
         <span class="glyphicon glyphicon-stop color" onclick="$(this).closest('form').find('input.color').click();"></span>
         <input id="color0" value="#00aaff" class="hidden form-control color" type="color" oninput="$(this).closest('form').find('span.color').css('color', this.value)"></input>
-        <span class="name" contenteditable="true"
-          oninput="$(this).closest('form').find('input.name').val(this.textContent);">Scenario 1</span>
-        <input id="name0" value="Scenario 0" class="hidden form-control name"></input>
+        <span class="name" contenteditable="true" oninput="$(this).closest('form').find('input.name').val(this.textContent);">Scenario 1</span>
+        <input id="name0" value="Scenario 0" class="hidden form-control name" oninput="$(this).closest('form').find('span.name').html(this.value);"></input>
         <button type="button" class="close" aria-label="Close" onclick="$(this).closest('form').remove();">
           <span aria-hidden="true">&times;</span>
         </button>
