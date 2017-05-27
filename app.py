@@ -3,7 +3,7 @@ from flask_frozen import Freezer
 
 app = Flask(__name__)
 with open("CNAME") as fd:
-    app.config["FREEZER_BASE_URL"] = fd.read()
+    app.config["FREEZER_BASE_URL"] = "http://" + fd.read().strip()
 freezer = Freezer(app)
 
 @app.cli.command()
