@@ -29,6 +29,8 @@ doCompile
 # Copy .travis.yml into build directory so that TravisCI doesn't try to kick
 # off another build when we push our deployment back up.
 cp ./.travis.yml build/
+# Copy CNAME so our custom domain isn't lost on deploy.
+cp ./CNAME build/
 cd build
 git init
 git config user.name "Travis CI"
