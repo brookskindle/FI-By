@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 
-{% from "macros.html" import form_template, result_template, graph, janitor_ceo_link %}
+{% from "macros.html" import
+    form_template,
+    result_template,
+    graph,
+    janitor_ceo_link,
+    mmm_retirement_math,
+%}
 
 
 {% block page %}
@@ -20,10 +26,8 @@
     <br>
     <br>
     Fortunately, the inverse is also true. The higher your savings rate, the
-    faster you can retire - regardless of how much you make.  A janitor that
-    saves half of his forty-thousand a year income
-    {{ janitor_ceo_link("can retire significantly earlier") }} than a CEO
-    making one million a year but saving only fifteen percent.
+    faster you can retire.
+    {{mmm_retirement_math("Learn more.")}}
     <br>
     <br>
     When can <b>you</b> retire? I've made the following calculator for just
