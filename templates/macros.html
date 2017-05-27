@@ -19,7 +19,7 @@
       <label for="income0">Annual income</label>
       <input id="income0" type="number" class="form-control income" value="80000"></input>
       <label for="expenses0">Annual expenses</label>
-      <input id="expenses0" type="number" class="form-control expenses" value="40000"></input>
+      <input id="expenses0" type="number" class="form-control expenses" value="40000" onchange="$(this).closest('form').find('input.rexpenses').val(this.value)"></input>
       <label>Current networth</label>
       <input id="networth0" type="number" class="form-control networth" value="0"></input>
 
@@ -29,6 +29,14 @@
         <input id="roi0" value="5" type="number" class="form-control roi"></input>
         <label>Annual withdrawal rate (%)</label>
         <input id="swr0" value="4" type="number" class="form-control swr"></input>
+        <label class=form-control">
+          <input type="checkbox" onclick="$(this).closest('form').find('div.retirement-expenses').toggle()"></input>
+          <span>My spending level will change when I retire</span>
+        </label>
+        <div hidden class="retirement-expenses">
+          <label>Annual expenses in retirement</label>
+          <input id="rexpenses0" value="40000" type="number" class="form-control rexpenses"></input>
+        </div>
       </div>
     </div> <!-- panel-body -->
   </div>  <!-- panel -->
@@ -50,9 +58,10 @@
       </h3>
     </div>
     <div class="panel-body">
-      With annual expenses of <b>$</b><b class="expenses"></b> and an assumed
-      annual safe withdrawal rate of <b class="swr"></b>%, you will need to
-      build up <b>$</b><b class="nestegg"></b> in investments to be considered
+      With an expected annual spending level of <b>$</b><b class="rexpenses"></b>
+      in retirement and an assumed annual safe
+      withdrawal rate of <b class="swr"></b>%, you will need to build up
+      <b>$</b><b class="nestegg"></b> in investments to be considered
       financially independent. Saving <b>$</b><b class="savings"></b> annually
       (and <b class="roi"></b>% annual return on investment), this will take
       <b class="years"></b> years.
@@ -72,11 +81,13 @@
 <a href='{{ url_for(".index",
                     income1=40000,
                     expenses1=20000,
+                    rexpenses1=20000,
                     networth1=0,
                     name1="Janitor",
                     color1="#10aa10",
                     income2=1000000,
                     expenses2=850000,
+                    rexpenses2=850000,
                     networth2=0,
                     name2="CEO",
                     color2="#fc0600",

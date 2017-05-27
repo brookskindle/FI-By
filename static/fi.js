@@ -18,6 +18,7 @@ FI.FICalculation = {
   roi: 5,
   swr: 4,
   networth: 0,
+  retirement_expenses: 50000,
 
   // Get the annual savings amount for the user
   savings: function() {
@@ -28,7 +29,7 @@ FI.FICalculation = {
   // current lifestyle if you only lived on the returns of your investment.
   nestegg: function() {
     // If your expenses are $40k/yr and your SWR is 4%, your nest egg is $1M
-    return this.expenses / (this.swr / 100);
+    return this.retirement_expenses / (this.swr / 100);
   },
 
   // Return true or false if the given networth means that the user is

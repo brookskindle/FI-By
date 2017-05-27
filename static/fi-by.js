@@ -20,6 +20,9 @@ FI.graph_fi_plotly = function() {
       if (key.startsWith("income")) {
         calculation.income = value;
       }
+      else if (key.startsWith("rexpenses")) {
+        calculation.retirement_expenses = value;
+      }
       else if (key.startsWith("expenses")) {
         calculation.expenses = value;
       }

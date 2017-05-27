@@ -292,7 +292,7 @@ form.resultFromForm = function(theform) {
 
   var name = result.getElementsByClassName("name")[0];
   var color = result.getElementsByClassName("color")[0];
-  var expenses = result.getElementsByClassName("expenses")[0];
+  var retirement_expenses = result.getElementsByClassName("rexpenses")[0];
   var swr = result.getElementsByClassName("swr")[0];
   var nestegg = result.getElementsByClassName("nestegg")[0];
   var savings = result.getElementsByClassName("savings")[0];
@@ -301,7 +301,7 @@ form.resultFromForm = function(theform) {
 
   name.innerHTML = $(theform).find("input.name").val();
   color.style.color = $(theform).find("input.color").val();
-  expenses.innerHTML = calculation.expenses.toLocaleString();
+  retirement_expenses.innerHTML = calculation.retirement_expenses.toLocaleString();
   swr.innerHTML = calculation.swr;
   nestegg.innerHTML = calculation.nestegg().toLocaleString();
   savings.innerHTML = calculation.savings().toLocaleString();
@@ -352,6 +352,7 @@ form.calculationFromForm = function(f) {
   var calc = Object.create(FI.FICalculation);
   calc.income = Number(f.getElementsByClassName("income")[0].value);
   calc.expenses = Number(f.getElementsByClassName("expenses")[0].value);
+  calc.retirement_expenses = Number(f.getElementsByClassName("rexpenses")[0].value);
   calc.roi = Number(f.getElementsByClassName("roi")[0].value);
   calc.swr = Number(f.getElementsByClassName("swr")[0].value);
   calc.networth = Number(f.getElementsByClassName("networth")[0].value);
