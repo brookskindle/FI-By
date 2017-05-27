@@ -27,7 +27,44 @@
     <br>
     Fortunately, the inverse is also true. The higher your savings rate, the
     faster you can retire.
-    {{mmm_retirement_math("Learn more.")}}
+
+    How much faster? All other things being equal (salary, rate of return,
+    etc.), if you save 15% of your income you'll be able to retire in about 42
+    years. If you save 50% of your income, you can retire in under 17 years -
+    <a href='{{ url_for(".index",
+                        name1="50%Savings",
+                        color1="#10aa10",
+                        income1=100000,
+                        expenses1=50000,
+                        rexpenses1=50000,
+                        networth1=0,
+                        name2="15%Savings",
+                        color2="#fc0600",
+                        income2=100000,
+                        expenses2=85000,
+                        rexpenses2=85000,
+                        networth2=0,
+                       ) }}'>
+      a difference of 25 years!
+    </a>
+
+    How is this possible? The math works out this way for two reasons:
+    <ul>
+      <li>
+        The higher your savings rate, the more money you can invest each year
+        for retirement. The more money you invest, the faster your nest egg
+        will grow.
+      </li>
+      <li>
+        The higher your savings rate, the less you spend. The less you spend,
+        the smaller your nest egg needs to be in order to retire.
+      </li>
+    </ul>
+    <br>
+    Increasing your income can also increase your savings rate, but for equal
+    amounts it is not as effective. A 5% increase in income will do less for
+    your retirement date than a 5% decrease in spending will.
+    {{ mmm_retirement_math("Learn more.") }}
     <br>
     <br>
     When can <b>you</b> retire? I've made the following calculator for just
