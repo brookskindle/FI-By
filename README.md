@@ -1,7 +1,7 @@
-# FI By
-Determine when you will achieve financial independence.
+# FI Hacks
+Life hacks to achieve financial independence and early retirement
 
-http://brookskindle.github.io/fi-by
+http://fihacks.com
 
 ## Financial Independence?
 Financial independence (FI for short) is the state at which you no longer have
