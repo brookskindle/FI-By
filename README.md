@@ -1,6 +1,6 @@
 # FI Hacks
 Life hacks to achieve financial independence and early retirement. Check it out
-at http://fihacks.com.
+at https://brookskindle.github.io/fihacks
 
 ## Installation
 ### Docker
