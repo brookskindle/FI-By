@@ -2,9 +2,9 @@ from flask import Flask, render_template
 from flask_frozen import Freezer
 
 app = Flask(__name__)
-with open("CNAME") as fd:
-    app.config["FREEZER_BASE_URL"] = "http://" + fd.read().strip()
+app.config["FREEZER_BASE_URL"] = "https://brookskindle.github.io/fihacks"
 freezer = Freezer(app)
+
 
 @app.cli.command()
 def freeze():
