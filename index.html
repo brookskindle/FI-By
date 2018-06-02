@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    <title>Life hacks to achieve financial independence and early retirement</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" defer></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+
+    <!-- Bootstrap requires jQuery -->
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+
+    <!-- Plotly -->
+    <script src="https://cdn.plot.ly/plotly-1.2.0.min.js"></script>
+
+    <!-- Custom javascript -->
+    <script src='/fihacks/static/fi.js' defer></script>
+    <script src='/fihacks/static/polyfill.js' defer></script>
+    <script src='/fihacks/static/form.js' defer></script>
+
+    
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-100760071-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+     
+  </head>
+
+  <body>
+    
+    <nav class="navbar navbar-default">
+      <a href='/fihacks/' class="navbar-brand">FI Hacks</a>
+      <p class="navbar-text">
+        Life hacks to achieve financial independence and early retirement
+      </p>
+    </nav>
+     
+
+    
+<div class="page-header bg-primary">
+  <div class="container">
+    <h2>"When can I retire?"</h2>
+    <p>is an important question that people of all ages ask.</p>
+  </div>
+</div>
+
+<div class="container">
+  <p>
+    Retirement and financial independence can often seem like nothing more than
+    a pipe dream for the average person. If you have an extremely low or a zero
+    savings rate, you will likely have to work for the rest of your life just
+    to survive.
+    <br>
+    <br>
+    Fortunately, the inverse is also true. The higher your savings rate, the
+    faster you can retire.
+
+    How much faster? All other things being equal (salary, rate of return,
+    etc.), if you save 15% of your income you'll be able to retire in about 42
+    years. If you save 50% of your income, you can retire in under 17 years -
+    <a href='/fihacks/?name1=50%25Savings&amp;color1=%2310aa10&amp;income1=100000&amp;expenses1=50000&amp;rexpenses1=50000&amp;networth1=0&amp;name2=15%25Savings&amp;color2=%23fc0600&amp;income2=100000&amp;expenses2=85000&amp;rexpenses2=85000&amp;networth2=0'>
+      a difference of 25 years!
+    </a>
+
+    How is this possible? The math works out this way for two reasons:
+    <ul>
+      <li>
+        The higher your savings rate, the more money you can invest each year
+        for retirement. The more money you invest, the faster your nest egg
+        will grow.
+      </li>
+      <li>
+        The higher your savings rate, the less you spend. The less you spend,
+        the smaller your nest egg needs to be in order to retire.
+      </li>
+    </ul>
+    <br>
+    Increasing your income can also increase your savings rate, but for equal
+    amounts it is not as effective. A 5% increase in income will do less for
+    your retirement date than a 5% decrease in spending will.
+    
+<a href="http://www.mrmoneymustache.com/2012/01/13/the-shockingly-simple-math-behind-early-retirement/">Learn more.</a>
+
+    <br>
+    <br>
+    When can <b>you</b> retire? I've made the following calculator for just
+    that purpose! Using only your current annual income, expenses, and few
+    other numbers, you can plot a course to retirement. You can even calculate
+    multiple scenarios at once if you're curious what, for example, saving an
+    additional 10% of your income or picking up an extra shift at work will do
+    for your retirement date.
+  </p>
+  <hr>
+
+  
+<form id="form0" class="hidden form-horizontal col-sm-4">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <span class="glyphicon glyphicon-stop color" onclick="$(this).closest('form').find('input.color').click();"></span>
+        <input id="color0" value="#00aaff" class="hidden form-control color" type="color" oninput="$(this).closest('form').find('span.color').css('color', this.value)"></input>
+        <span class="name" contenteditable="true" oninput="$(this).closest('form').find('input.name').val(this.textContent);">Scenario 1</span>
+        <input id="name0" value="Scenario 0" class="hidden form-control name" oninput="$(this).closest('form').find('span.name').html(this.value);"></input>
+        <button type="button" class="close" aria-label="Close" onclick="$(this).closest('form').remove();">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </h3>
+    </div> <!-- panel-heading -->
+    <div class="panel-body">
+      <label for="income0">Annual income</label>
+      <input id="income0" type="number" class="form-control income" value="80000"></input>
+      <label for="expenses0">Annual expenses</label>
+      <input id="expenses0" type="number" class="form-control expenses" value="40000" onchange="$(this).closest('form').find('input.rexpenses').val(this.value)"></input>
+      <label>Current networth</label>
+      <input id="networth0" type="number" class="form-control networth" value="0"></input>
+
+      <a href="#options0" data-toggle="collapse">More options</a>
+      <div id="options0" class="collapse">
+        <label>Annual return on investment (%)</label>
+        <input id="roi0" value="5" type="number" class="form-control roi"></input>
+        <label>Annual withdrawal rate (%)</label>
+        <input id="swr0" value="4" type="number" class="form-control swr"></input>
+        <label class=form-control">
+          <input type="checkbox" onclick="$(this).closest('form').find('div.retirement-expenses').toggle()"></input>
+          <span>My spending level will change when I retire</span>
+        </label>
+        <div hidden class="retirement-expenses">
+          <label>Annual expenses in retirement</label>
+          <input id="rexpenses0" value="40000" type="number" class="form-control rexpenses"></input>
+        </div>
+      </div>
+    </div> <!-- panel-body -->
+  </div>  <!-- panel -->
+</form>
+
+  <div id="calculations" class="row">
+  </div> <!-- calculations -->
+
+  <hr>
+  <br>
+
+  <div class="row">
+    <button type="button" id="calculate" class="btn btn-success">Run the numbers</button>
+    <button type="button" id="add" class="btn btn-primary">Add calculation</button>
+  </div>
+
+  <br>
+</div> <!-- container -->
+
+<div id="results-header" class="hidden page-header bg-primary">
+  <div class="container">
+    <h2>Results</h2>
+  </div>
+</div>
+
+
+<div id="result0" class="hidden result col-sm-4">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <span class="glyphicon glyphicon-stop color"></span>
+        <span class="name">Scenario 1</span>
+      </h3>
+    </div>
+    <div class="panel-body">
+      With an expected annual spending level of <b>$</b><b class="rexpenses"></b>
+      in retirement and an assumed annual safe
+      withdrawal rate of <b class="swr"></b>%, you will need to build up
+      <b>$</b><b class="nestegg"></b> in investments to be considered
+      financially independent. Saving <b>$</b><b class="savings"></b> annually
+      (and <b class="roi"></b>% annual return on investment), this will take
+      <b class="years"></b> years.
+    </div>
+  </div>
+</div>
+
+<div id="results-container" class="hidden container">
+  <div id="results" class="row">
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      
+<div id="canvas_div"></div>
+
+    </div>
+  </div>
+</div> <!-- container -->
+
+  </body>
+</html>
